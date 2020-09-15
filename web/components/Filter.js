@@ -11,8 +11,11 @@ const Filter = ({ className, tags, setTag, tag: filterTag }) => {
         <Button
           className="filter-button"
           key={tag._id}
-          onClick={() => setTag(tag.title.toLowerCase().trim())}
-          modifiers={tag.title.toLowerCase() === filterTag && 'active'}
+          onClick={() => setTag(tag)}
+          modifiers={
+            tag.title.toLowerCase() === filterTag?.title?.toLowerCase() &&
+            'active'
+          }
         >
           {tag.title}
         </Button>
@@ -23,6 +26,10 @@ const Filter = ({ className, tags, setTag, tag: filterTag }) => {
 
 export default styled(Filter)(
   ({ theme }) => css`
+    ${spacing.sm('mx', { multiplier: -1 })};
+    ${spacing.md('mb')};
+    width: 100%;
+
     .filter-button {
       ${spacing.sm('mx,mb')};
     }

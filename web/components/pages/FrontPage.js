@@ -9,6 +9,7 @@ import Search from '../Search'
 import Editor from '../editor'
 import Filter from '../Filter'
 import Button from '@heydays/Button'
+import TagCategory from 'components/TagCategory'
 
 const FrontPage = ({
   className,
@@ -16,8 +17,7 @@ const FrontPage = ({
   content,
   pagebuilder,
   glossary,
-  tags,
-  ...props
+  tags
 }) => {
   const [tag, setTag] = useState(null)
   const [searchTerm, setSearchTerm] = useState(null)
@@ -36,7 +36,7 @@ const FrontPage = ({
         .reduce((res, item) => {
           const hasTag = item.tags
             .map(t => t.title.toLowerCase())
-            .includes(tag.toLowerCase())
+            .includes(tag.title.toLowerCase().trim())
           if (hasTag) {
             res.push(item)
           }
@@ -66,6 +66,7 @@ const FrontPage = ({
               Reset
             </Button>
           ))}
+        {tag && <TagCategory tag={tag} />}
         {items.map(item => (
           <li key={item._id}>
             <p>{item.title}</p>
@@ -91,6 +92,17 @@ export default styled(FrontPage)(
     }
     .Page__content {
       ${spacing.sm('mt')}
+    }
+
+    p {
+      margin-bottom: 0;
+    }
+
+    li {
+      list-style: none;
+      padding: 0;
+      ${spacing.md('mb')};
+      display: block;
     }
   `
 )

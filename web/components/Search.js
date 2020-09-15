@@ -14,6 +14,7 @@ const Search = ({ className, setSearchTerm }) => {
         className="searchBox"
         as="input"
         type="search"
+        placeholder="Search…"
         onChange={handleSearch}
       />
     </div>
@@ -24,7 +25,7 @@ export default styled(Search)(
   ({ theme }) => css`
     .searchBox {
       width: 100%;
-      ${spacing.lg('mb')};
+      ${spacing.md('mb')};
     }
   `
 )
