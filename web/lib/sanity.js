@@ -59,6 +59,9 @@ export const getFrontpage = () => {
 export const getGlossary = () => {
   const query = `*[_type == 'glossary']{
     ...,
+    tags[]->{
+      ...
+    }
   }
   `
   return client.fetch(query)

@@ -1,20 +1,30 @@
 import React from 'react'
 import styled, { css } from 'styled-components'
+import Button from '@heydays/Button'
+import { spacing } from '../styles/utilities'
 
-const Search = ({ className, items, setItems }) => {
+const Search = ({ className, setSearchTerm }) => {
   const handleSearch = e => {
     const searchTerm = e.target.value.toLowerCase()
-    console.log(items)
-    const newItems = items.filter(item => {
-      return item.title.toLowerCase().includes(searchTerm)
-    })
-    setItems(newItems)
+    setSearchTerm(searchTerm)
   }
   return (
     <div className={className}>
-      <input type="search" onChange={handleSearch} />
+      <Button
+        className="searchBox"
+        as="input"
+        type="search"
+        onChange={handleSearch}
+      />
     </div>
   )
 }
 
-export default styled(Search)(({ theme }) => css``)
+export default styled(Search)(
+  ({ theme }) => css`
+    .searchBox {
+      width: 100%;
+      ${spacing.lg('mb')};
+    }
+  `
+)

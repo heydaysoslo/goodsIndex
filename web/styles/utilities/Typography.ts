@@ -1,4 +1,4 @@
-import { css } from 'styled-components'
+import { css, CSSObject } from 'styled-components'
 
 import { responsiveFonts } from '../themes'
 import { remSize } from './Converters'
@@ -30,7 +30,19 @@ export const createFontSizeAndLineHeight = size => {
   `
 }
 
-export const fonts = Object.keys(responsiveFonts).reduce((acc, key) => {
+type fonts = {
+  small?: () => CSSObject
+  body?: () => CSSObject
+  h1?: () => CSSObject
+  h2?: () => CSSObject
+  h3?: () => CSSObject
+  h4?: () => CSSObject
+  h5?: () => CSSObject
+  title?: () => CSSObject
+  display?: () => CSSObject
+}
+
+const fontFuncs = Object.keys(responsiveFonts).reduce((acc, key) => {
   acc[key] = () => ({ theme }) => {
     if (theme?.responsiveFonts.hasOwnProperty(key)) {
       const val = theme.responsiveFonts[key]
@@ -46,6 +58,8 @@ export const fonts = Object.keys(responsiveFonts).reduce((acc, key) => {
   return acc
 }, {})
 
+export const fonts: fonts = fontFuncs
+
 export const globalTypeStyle = ({ theme }) => css`
   html {
     font-size: 62.5%;
@@ -55,7 +69,7 @@ export const globalTypeStyle = ({ theme }) => css`
   h2,
   h3,
   h4 {
-    /* font-weight: bold; */
+    font-weight: normal;
   }
 
   body {

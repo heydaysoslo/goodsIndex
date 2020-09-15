@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import styled, { css } from 'styled-components'
 
 import Pagebuilder from '../pagebuilder/Pagebuilder'
@@ -8,6 +8,7 @@ import { spacing } from '../../styles/utilities'
 import Search from '../Search'
 import Editor from '../editor'
 import Filter from '../Filter'
+import Button from '@heydays/Button'
 
 const FrontPage = ({
   className,
@@ -18,7 +19,33 @@ const FrontPage = ({
   tags,
   ...props
 }) => {
+  const [tag, setTag] = useState(null)
+  const [searchTerm, setSearchTerm] = useState(null)
   const [items, setItems] = useState(glossary)
+
+  useEffect(() => {
+    let newItems = [...glossary]
+    if (searchTerm) {
+      newItems = newItems.filter(item => {
+        return item.title.toLowerCase().includes(searchTerm)
+      })
+    }
+    if (tag) {
+      newItems = newItems
+        .filter(item => item?.tags?.length > 0)
+        .reduce((res, item) => {
+          const hasTag = item.tags
+            .map(t => t.title.toLowerCase())
+            .includes(tag.toLowerCase())
+          if (hasTag) {
+            res.push(item)
+          }
+          return res
+        }, [])
+    }
+    setItems(newItems)
+  }, [tag, searchTerm])
+
   return (
     <div className={className}>
       <Container className="Page__container">
@@ -26,8 +53,19 @@ const FrontPage = ({
           <P>FrontPage</P>
           {title && <H1>{title}</H1>}
         </header>
-        <Search items={glossary} setItems={setItems} />
-        <Filter tags={tags} />
+        <Search items={glossary} setSearchTerm={setSearchTerm} />
+        <Filter tags={tags} setTag={setTag} tag={tag} />
+        {searchTerm ||
+          (tag && (
+            <Button
+              onClick={() => {
+                setTag(null)
+                setSearchTerm(null)
+              }}
+            >
+              Reset
+            </Button>
+          ))}
         {items.map(item => (
           <li key={item._id}>
             <p>{item.title}</p>

@@ -1,13 +1,13 @@
 import React from 'react'
-import { applyStyleModifiers } from 'styled-components-modifiers'
 import styled, { css } from 'styled-components'
+import { bp, color } from '../../styles/utilities'
 
-type Modifiers = 'secondary' | 'small'
+type Modifiers = 'secondary' | 'small' | 'active'
 
 type Props = {
   children: React.ReactNode
   className?: string
-  modifiers?: Modifiers | Modifiers[]
+  modifiers?: Modifiers | Modifiers[] | undefined
   onClick?: () => void
 }
 
@@ -23,36 +23,50 @@ const Button: React.FC<Props> = ({ children, className, ...props }) => {
   )
 }
 
-const BUTTON_MODIFIERS = {
-  secondary: () => css`
-    background: orange;
-    border-color: orange;
-
-    &:hover {
-      background-color: none;
-      color: orange;
-    }
-  `,
-  small: () => css`
-    padding: 10px;
-  `
-}
-
-export default styled(Button)(
-  ({ theme }) => css`
+export default styled(Button)<Props>(
+  ({ theme, modifiers }) => css`
     appearance: none;
     background: none;
     display: inline-block;
-    border: 1px solid ${theme.colors.border};
+    border: 2px solid transparent;
+    background-color: ${theme.colors.text};
+    color: ${theme.colors.background};
     font-size: 2rem;
     padding: 20px;
     transition: 0.15s ease background-color, color;
+    cursor: pointer;
 
     &:hover {
-      background-color: black;
-      color: white;
+      background-color: white;
+      color: black;
+      border-color: black;
     }
 
-    ${applyStyleModifiers(BUTTON_MODIFIERS)}
+    ${
+      modifiers === 'small' || modifiers?.includes?.('small')
+        ? css`
+            padding: 0;
+          `
+        : ''
+    }
+
+    ${
+      modifiers === 'secondary' || modifiers?.includes?.('secondary')
+        ? css`
+            color: ${theme.colors.primary};
+            background-color: ${theme.colors.secondary};
+          `
+        : null
+    }
+
+    ${
+      modifiers === 'active' || modifiers?.includes?.('active')
+        ? css`
+            color: black;
+            background-color: white;
+            border-color: black;
+          `
+        : null
+    }
   `
 )

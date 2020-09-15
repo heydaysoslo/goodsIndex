@@ -3,7 +3,6 @@ import TemplateResolver from '../components/resolvers/TemplateResolver'
 import useSWR from 'swr'
 
 const getAllData = async () => {
-  console.log('fetching data')
   try {
     const data = await Promise.all([getFrontpage(), getGlossary(), getTags()])
     return {
@@ -17,7 +16,6 @@ const getAllData = async () => {
 }
 
 function Home({ frontpage, tags, glossary }) {
-  console.log('Home -> frontpage, tags, glossary', frontpage, tags, glossary)
   // const { data, error } = useSWR('hello', getAllData, {
   //   refreshInterval: 5000
   // })
