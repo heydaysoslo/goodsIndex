@@ -29,7 +29,7 @@ const FrontPage = ({
         <Search items={glossary} setItems={setItems} />
         <Filter tags={tags} />
         {items.map(item => (
-          <li key={item._key}>
+          <li key={item._id}>
             <p>{item.title}</p>
             <Editor blocks={item.content} />
           </li>

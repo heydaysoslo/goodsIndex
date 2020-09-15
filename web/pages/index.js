@@ -1,27 +1,51 @@
 import { getFrontpage, getArticles, getGlossary, getTags } from '../lib/sanity'
-import useFetch from '@heydays/useFetch'
 import TemplateResolver from '../components/resolvers/TemplateResolver'
+import useSWR from 'swr'
 
-export const getStaticProps = async () => {
-  const data = await getFrontpage()
-  const articles = await getArticles()
-  const glossary = await getGlossary()
-  console.log('getStaticProps -> glossary', glossary)
-  const tags = await getTags()
-  console.log('getStaticProps -> tags', tags)
-  return {
-    props: {
-      frontpage: data[0].frontpage,
-      articles,
-      glossary,
-      tags
+const getAllData = async () => {
+  console.log('fetching data')
+  try {
+    const data = await Promise.all([getFrontpage(), getGlossary(), getTags()])
+    return {
+      ...data[0][0].frontpage,
+      glossary: data[1],
+      tags: data[2]
     }
+  } catch (err) {
+    return err
   }
 }
 
-export default function Home({ frontpage, articles, tags, glossary }) {
-  const { response: res, error, isLoading } = useFetch('/api/hello')
-  console.log('Home -> res', res)
+function Home({ frontpage, tags, glossary }) {
+  console.log('Home -> frontpage, tags, glossary', frontpage, tags, glossary)
+  // const { data, error } = useSWR('hello', getAllData, {
+  //   refreshInterval: 5000
+  // })
+  // console.log('Home -> data', data)
+  // if (error) {
+  //   return (
+  //     <div>
+  //       Something went wrong <pre>{JSON.stringify(error, null, 2)}</pre>
+  //     </div>
+  //   )
+  // }
+  // if (!data) {
+  //   return <div>Loading...</div>
+  // }
 
   return <TemplateResolver page={{ ...frontpage, tags, glossary }} />
 }
+
+Home.getInitialProps = async () => {
+  const frontpage = await getFrontpage()
+  const glossary = await getGlossary()
+  const tags = await getTags()
+
+  return {
+    ...frontpage[0],
+    tags,
+    glossary
+  }
+}
+
+export default Home

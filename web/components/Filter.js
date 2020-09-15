@@ -5,7 +5,7 @@ const Filter = ({ className, tags }) => {
   return (
     <div className={className}>
       {tags.map(tag => (
-        <button>{tag.title}</button>
+        <button key={tag._id}>{tag.title}</button>
       ))}
     </div>
   )
