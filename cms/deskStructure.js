@@ -35,6 +35,8 @@ const hiddenDocTypes = listItem =>
     'personOrder',
     'about',
     'menu',
+    'tag',
+    'glossary',
     ...config.pageTypes,
     ...hiddenCustomTypes
   ].includes(listItem.getId())
@@ -104,10 +106,12 @@ export default () =>
       createDocsList('menu'),
       createDocsList('frontpage'),
       createSingleton('about', {
-        withPreviews: false,
+        withPreviews: true,
         icon: () => <EmojiIcon>🙋🏻‍♀️</EmojiIcon>
       }),
-      createDocsList('page'),
+      createDocsList('glossary'),
+      createDocsList('tag'),
+      // createDocsList('page'),
       // createDocsList('article'),
       ...customTypesWithOrderPage,
       // This returns an array of all the document types
