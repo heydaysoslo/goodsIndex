@@ -16,7 +16,6 @@ const TextImageSplit = ({
   className,
   media
 }) => {
-  console.log('image', media)
   return (
     <div className={className}>
       <Grid

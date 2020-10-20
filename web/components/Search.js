@@ -21,15 +21,15 @@ const Search = ({ className, setSearchTerm }) => {
           cy="11"
           r="10"
           stroke={theme.colors.primary}
-          stroke-width="2"
+          strokeWidth="2"
         />
-        <path d="M18 18L24 24" stroke={theme.colors.primary} stroke-width="2" />
+        <path d="M18 18L24 24" stroke={theme.colors.primary} strokeWidth="2" />
       </svg>
 
       <input
         className="searchBox"
         type="search"
-        placeholder="Search…"
+        placeholder="Search"
         onChange={handleSearch}
       />
     </div>
@@ -44,14 +44,15 @@ export default styled(Search)(
     ${theme.spacing.xs(['py', 'pl'])};
 
     .icon {
-      width: 1em;
+      width: 0.6em;
+      height: 0.6em;
       ${theme.spacing.xs('mr')};
     }
 
     .searchBox {
       width: 100%;
       border: none;
-      ${theme.fonts.h2()};
+      ${theme.fonts.small()};
       background: none;
       color: ${theme.colors.text};
 

@@ -14,6 +14,7 @@ import Spacer from '@heydays/Spacer'
 export const serializers = {
   types: {
     block(props) {
+      console.log('block -> props', props)
       if (props.node.children.text && props.node.children.text.length === 0)
         return null
       switch (props.node.style) {

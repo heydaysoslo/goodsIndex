@@ -1,6 +1,6 @@
 import React, { useState, useEffect, ComponentType, Component } from 'react'
 import styled, { css } from 'styled-components'
-import {icons} from '../../styles/themes/defaultTheme'
+import { icons } from 'styles/themes/defaultTheme'
 
 /**
  *
@@ -34,7 +34,7 @@ type Props = {
   name: Name
   color?: string
   className?: string
-  modifiers?: Modifiers | Modifiers[]
+  modifiers?: Modifiers
 }
 
 const Icon = ({ className, name }: Props) => {
@@ -56,26 +56,10 @@ const Icon = ({ className, name }: Props) => {
   return Component && <Component className={className} />
 }
 
-export default styled(Icon)<Props>(
-  ({ theme, color }) => css`
+export default styled(Icon)(
+  ({ theme, color, modifiers = 'medium' }) => css`
     display: inline-block;
-    height: ${theme.icons.medium};
-
-    svg {
-      height: 100%;
-    }
-
-    .cls-3 {
-      fill: green;
-    }
-
-    /* Override color */
-    ${color &&
-      css`
-        .cls-3,
-        .cls-2 {
-          fill: ${color};
-        }
-      `}
+    height: ${theme.icons[modifiers]};
+    fill: ${color ? color : 'currentColor'};
   `
 )

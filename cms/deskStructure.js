@@ -1,17 +1,17 @@
+import React from 'react'
 import S from '@sanity/desk-tool/structure-builder'
 import config, {
   createMenuDeskStructure,
   createCustomTypeDeskStructure
 } from './heydays-config'
 
-import MdSettings from 'react-icons/lib/md/settings'
-import MdBusiness from 'react-icons/lib/md/business'
 import EyeIcon from 'part:@sanity/base/eye-icon'
 import EditIcon from 'part:@sanity/base/edit-icon'
 import FaFileO from 'react-icons/lib/fa/file-text-o'
 
 import SeoPreview from './custom/components/previews/seo/SeoPreviews'
 import Preview from './custom/components/previews/preview/Preview'
+import EmojiIcon from './custom/components/EmojiIcon'
 
 // Create menus
 
@@ -31,6 +31,9 @@ const hiddenDocTypes = listItem =>
     'siteSettings',
     'article',
     'frontpage',
+    'person',
+    'personOrder',
+    'about',
     'menu',
     ...config.pageTypes,
     ...hiddenCustomTypes
@@ -38,7 +41,7 @@ const hiddenDocTypes = listItem =>
 
 const createSingleton = (id, options = {}) => {
   const { withPreviews = true, icon = FaFileO } = options
-  const title = id
+  const title = `${id.slice(0, 1).toUpperCase()}${id.slice(1, id.length)}`
   return S.listItem()
     .title(title)
     .icon(icon)
@@ -65,7 +68,8 @@ const createSingleton = (id, options = {}) => {
 
 const createDocsList = (id, options = {}) => {
   const { withPreviews = true } = options
-  const title = id
+  // Make first letter capital
+  const title = `${id.slice(0, 1).toUpperCase()}${id.slice(1, id.length)}`
   return S.listItem()
     .title(title)
     .schemaType(id)
@@ -97,27 +101,34 @@ export default () =>
   S.list()
     .title('Content')
     .items([
-      createMenuDeskStructure(),
+      createDocsList('menu'),
       createDocsList('frontpage'),
+      createSingleton('about', {
+        withPreviews: false,
+        icon: () => <EmojiIcon>🙋🏻‍♀️</EmojiIcon>
+      }),
       createDocsList('page'),
-      createDocsList('article'),
+      // createDocsList('article'),
       ...customTypesWithOrderPage,
       // This returns an array of all the document types
       // defined in schema.js. We filter out those that we have
       // defined the structure above
       ...S.documentTypeListItems().filter(hiddenDocTypes),
       S.divider(),
-      createSingleton('companyInfo', { withPreviews: false, icon: MdBusiness }),
+      createSingleton('companyInfo', {
+        withPreviews: false,
+        icon: () => <EmojiIcon>🏢</EmojiIcon>
+      }),
       S.listItem()
         .title('Settings')
-        .icon(MdSettings)
+        .icon(() => <EmojiIcon>⚙️</EmojiIcon>)
         .child(
           S.list()
             .title('Settings')
             .items([
               createSingleton('siteSettings', {
                 withPreviews: false,
-                icon: MdSettings
+                icon: () => <EmojiIcon>⚙️</EmojiIcon>
               })
             ])
         )

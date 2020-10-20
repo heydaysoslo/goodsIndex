@@ -19,7 +19,7 @@ const BASE_ARTICLE = `
   mainImage
 `
 
-const PAGEBUILDER = `
+export const PAGEBUILDER = `
 pagebuilder {
   sections[]{
     seeAllLink {
@@ -38,12 +38,6 @@ pagebuilder {
 
 const client = sanityClient(options)
 
-export const previewClient = sanityClient({
-  ...options,
-  useCdn: false,
-  token: process.env.SANITY_TOKEN
-})
-
 export const getFrontpage = () => {
   const query = `
   *[_id == 'siteSettings'] {
@@ -53,6 +47,36 @@ export const getFrontpage = () => {
     }
     }
   `
+  return client.fetch(query)
+}
+
+export const getAbout = () => {
+  const query = `*[_id == 'about']`
+  return client.fetch(query)
+}
+
+export const getSettings = () => {
+  const query = `*[_type == 'siteSettings']{
+    ...,
+    primaryMenu->,
+    secondaryMenu->,
+    frontpage->{
+      ...,
+      ${PAGEBUILDER}
+    },
+    privacypage->,
+    designTokens->
+  }`
+  return client.fetch(query).then(res => res[0])
+}
+
+export const getCompanyInfo = () => {
+  const query = `*[_type == 'companyInfo']`
+  return client.fetch(query)
+}
+
+export const getGlobalSettings = () => {
+  const query = `*[_type == 'global']`
   return client.fetch(query)
 }
 
@@ -92,17 +116,7 @@ export const getArticle = params => {
   return client.fetch(query, params)
 }
 
-export const getPreview = params => {
-  const query = `
-  *[_id in [$id]]{
-    authors[]{
-      person->,
-      ...
-    },
-    ${PAGEBUILDER},
-    ...
-  } | order(_updatedAt desc)
-  `
+export const getPreview = (previewClient, query, params) => {
   return previewClient.fetch(query, params)
 }
 

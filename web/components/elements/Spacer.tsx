@@ -2,19 +2,23 @@ import React from 'react'
 import styled, { css } from 'styled-components'
 import { SpacingFuncs } from 'styles/utilities/spacingFactory'
 
-type Props = {
+export type SpacerProps = {
   className?: string
   size?: keyof SpacingFuncs
   custom?: string
 }
 
-const Spacer: React.FC<Props> = ({ className }) => {
+const Spacer: React.FC<SpacerProps> = ({ className }) => {
   return <div className={className}></div>
 }
 
 export default styled(Spacer)(
   ({ theme, size = 'md', custom }) => css`
-    ${!custom && theme.spacing[size]('height')};
-    ${custom && `height: ${custom}`};
+    ${!custom && theme.spacing[size](['height', 'width'])};
+    ${custom &&
+      css`
+        height: ${custom};
+        width: ${custom};
+      `};
   `
 )

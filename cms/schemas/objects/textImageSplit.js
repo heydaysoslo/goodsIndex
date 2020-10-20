@@ -30,9 +30,7 @@ export default {
       type: 'link'
     },
     {
-      name: 'image',
-      title: 'Image',
-      type: 'mainImage',
+      ...d.media,
       fieldset: 'image'
     },
     {

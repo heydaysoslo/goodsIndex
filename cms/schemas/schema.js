@@ -16,6 +16,7 @@ import siteSettings from './documents/siteSettings'
 import frontpage from './documents/frontpage'
 import glossary from './documents/glossary'
 import tag from './documents/tag'
+import about from './documents/about'
 
 // Object types
 import link from './objects/link'
@@ -105,6 +106,7 @@ export default createSchema({
     // articleOrder,
     frontpage,
     glossary,
-    tag
+    tag,
+    about
   ])
 })
