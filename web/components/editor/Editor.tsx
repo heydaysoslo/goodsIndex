@@ -8,6 +8,8 @@ import Oembed from '../Oembed'
 import { H3, H2, P } from '@heydays/Typography'
 import Button from '@heydays/Button'
 import Accordion from '@heydays/Accordion'
+import styled, { css } from 'styled-components'
+import Spacer from '@heydays/Spacer'
 
 export const serializers = {
   types: {
@@ -37,7 +39,7 @@ export const serializers = {
             <p>
               <Button
                 as={LinkResolver}
-                data={props.node.link.link}
+                link={props.node.link.link}
                 modifiers="primary"
               >
                 {props.node.link.title}
@@ -58,12 +60,10 @@ export const serializers = {
         <p>
           <Button
             as={LinkResolver}
-            data={
-              props.node.link.externalLink?.url || props.node.link.reference
-            }
-            modifiers={props.node.type && props.node.type}
+            link={props.node.link?.href}
+            modifiers={props.node.linkStyle && props.node.linkStyle}
           >
-            {props.node.link.title}
+            {props.node.link.linkText}
           </Button>
         </p>
       )
@@ -76,20 +76,24 @@ export const serializers = {
       return <Figure node={props.node} />
     },
     oembed(props) {
+      // @ts-ignore
       return <Oembed url={props.node.url} />
     },
     accordion(props) {
+      // @ts-ignore
       return <Accordion items={props.node.items} exclusive defaultActive={2} />
+    },
+    spacer(props) {
+      return <Spacer size={props.node.space} />
     }
   },
   marks: {
     link(props) {
-      const link = props?.mark?.externalLink?.url || props?.mark?.reference
-      if (!link) return props.children
       return (
         <LinkResolver
+          className=""
           openInNewTab={props?.mark?.externalLink?.blank}
-          data={link}
+          link={props.mark}
         >
           {props.children ||
             props?.mark?.title ||
@@ -100,7 +104,12 @@ export const serializers = {
   }
 }
 
-const Editor = ({ blocks, className }) => {
+type Props = {
+  blocks: any
+  className?: string
+}
+
+const Editor: React.FC<Props> = ({ blocks, className }) => {
   return (
     <div className={`Editor ${className ? className : ''}`}>
       <BaseBlockContent
@@ -112,4 +121,24 @@ const Editor = ({ blocks, className }) => {
   )
 }
 
-export default Editor
+export default styled(Editor)(
+  ({ theme }) => css`
+    h2 {
+      ${theme.spacing.lg('mt')};
+    }
+    h3 {
+      ${theme.spacing.md('mt')};
+    }
+    p {
+      ${theme.spacing.xs('mt')};
+    }
+
+    .Editor__blocks > *:first-child {
+      margin-top: 0;
+    }
+
+    .Figure {
+      ${theme.spacing.lg('mt')};
+    }
+  `
+)
