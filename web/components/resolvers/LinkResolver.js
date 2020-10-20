@@ -30,8 +30,10 @@ export const InternalLink = ({
   }
 
   return (
-    <Link href={link} className={className} {...props}>
-      <a>{linkText || children || page.title}</a>
+    <Link href={link}>
+      <a className={className} {...props}>
+        {linkText || children || page.title}
+      </a>
     </Link>
   )
 }

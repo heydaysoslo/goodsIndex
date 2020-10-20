@@ -3,21 +3,20 @@ import React from 'react'
 import Editor from '../editor/'
 import LinkResolver from '@heydays/LinkResolver'
 import { H3 } from '@heydays/Typography'
-import Grid from '@heydays/Grid'
+import Grid, { GridItem } from '@heydays/Grid'
 import styled, { css } from 'styled-components'
-import { spacing } from '../../styles/utilities'
 import CloudinaryMediaResolver from '../resolvers/CloudinaryMediaResolver'
 
 const TextImageSplit = ({
   textOnTheRight = false,
-  cldImage,
   aspect,
   link,
   title,
   content,
   className,
-  image
+  media
 }) => {
+  console.log('image', media)
   return (
     <div className={className}>
       <Grid
@@ -26,24 +25,28 @@ const TextImageSplit = ({
         gap={true}
         align="center"
       >
-        <div className="content">
-          {title && <H3>{title}</H3>}
-          {content && (
-            <Editor className="TextImageSplit__content" blocks={content} />
-          )}
-          {link && (
-            <LinkResolver className="TextImageSplit__button" link={link} />
-          )}
-        </div>
-        <div className="image">
-          {image && (
-            <CloudinaryMediaResolver
-              className="TextImageSplit__image"
-              node={image}
-              aspectRatio={aspect}
-            />
-          )}
-        </div>
+        <GridItem span={{ md: 6 }}>
+          <div className="content">
+            {title && <H3>{title}</H3>}
+            {content && (
+              <Editor className="TextImageSplit__content" blocks={content} />
+            )}
+            {link && (
+              <LinkResolver className="TextImageSplit__button" link={link} />
+            )}
+          </div>
+        </GridItem>
+        <GridItem span={{ md: 6 }}>
+          <div className="image">
+            {media && (
+              <CloudinaryMediaResolver
+                className="TextImageSplit__image"
+                node={media}
+                aspectRatio={aspect}
+              />
+            )}
+          </div>
+        </GridItem>
       </Grid>
     </div>
   )
@@ -52,10 +55,10 @@ const TextImageSplit = ({
 export default styled(TextImageSplit)(
   ({ theme }) => css`
     .TextImageSplit__content {
-      ${spacing.sm('mt')}
+      ${theme.spacing.sm('mt')}
     }
     .TextImageSplit__button {
-      ${spacing.sm('mt')}
+      ${theme.spacing.sm('mt')}
     }
   `
 )

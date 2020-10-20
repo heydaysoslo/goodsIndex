@@ -1,6 +1,6 @@
 import React from 'react'
 import styled, { css } from 'styled-components'
-import { bp, color } from '../../styles/utilities'
+import { applyModifier, remSize } from '../../styles/utilities'
 
 type Modifiers = 'secondary' | 'small' | 'active'
 
@@ -23,50 +23,39 @@ const Button: React.FC<Props> = ({ children, className, ...props }) => {
   )
 }
 
-export default styled(Button)<Props>(
-  ({ theme, modifiers }) => css`
+export default styled(Button)(
+  ({ theme }) => css`
     appearance: none;
     background: none;
     display: inline-block;
-    border: 2px solid transparent;
-    background-color: ${theme.colors.text};
-    color: ${theme.colors.background};
-    font-size: 2rem;
-    padding: 20px;
+    border: ${theme.border.small};
+    border-radius: ${remSize(60)};
+    color: ${theme.colors.text};
     transition: 0.15s ease background-color, color;
     cursor: pointer;
 
     &:hover {
-      background-color: white;
-      color: black;
-      border-color: black;
+      background-color: ${theme.colors.text};
+      color: ${theme.colors.background};
     }
 
-    ${
-      modifiers === 'small' || modifiers?.includes?.('small')
-        ? css`
-            padding: 0;
-          `
-        : ''
-    }
+    ${applyModifier(
+      'small',
+      css`
+        ${theme.fonts.small()};
+        padding-left: 0.5em;
+        padding-right: 0.5em;
+        padding-top: 0.1em;
+        padding-bottom: 0.2em;
+      `
+    )}
 
-    ${
-      modifiers === 'secondary' || modifiers?.includes?.('secondary')
-        ? css`
-            color: ${theme.colors.primary};
-            background-color: ${theme.colors.secondary};
-          `
-        : null
-    }
-
-    ${
-      modifiers === 'active' || modifiers?.includes?.('active')
-        ? css`
-            color: black;
-            background-color: white;
-            border-color: black;
-          `
-        : null
-    }
+    ${applyModifier(
+      'active',
+      css`
+        background-color: ${theme.colors.text};
+        color: ${theme.colors.background};
+      `
+    )}
   `
 )

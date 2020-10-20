@@ -4,6 +4,7 @@ import styled, { css } from 'styled-components'
 import { motion } from 'framer-motion'
 
 import { transitions } from '../../../utils/animation'
+import { transitions as transitionType } from '../../../types'
 
 /**
  * Usage:
@@ -22,7 +23,32 @@ import { transitions } from '../../../utils/animation'
  * 🎥 With react-spring:  https://github.com/thebuilder/react-intersection-observer/blob/HEAD/docs/Recipes.md#trigger-animations
  */
 
-const AnimateInView = ({
+type Props = {
+  /**
+   * The amount of the element to be visible before triggering animation.
+   * Number between 0 - 1.
+   */
+  threshold?: number
+  /**
+   * Handler when element get into or out of view (threshold).
+   */
+  onInView?: (args: {
+    inView?: boolean
+    ref?: (node?: Element) => void
+    entry?: IntersectionObserverEntry
+  }) => void
+  /**
+   * Trigger animation multiple times.
+   * Defaults to true.
+   */
+  triggerOnce?: boolean
+  /**
+   * Name of transition
+   */
+  transition?: transitionType
+}
+
+const AnimateInView: React.FC<Props> = ({
   children,
   threshold = 0.25,
   onInView,
@@ -37,7 +63,7 @@ const AnimateInView = ({
   })
 
   useEffect(() => {
-    if (onInView && typeof onInView === 'function') {
+    if (onInView) {
       onInView({ inView, ref, entry })
     }
   }, [onInView, inView, ref, entry])

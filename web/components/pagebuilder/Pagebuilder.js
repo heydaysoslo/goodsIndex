@@ -1,6 +1,6 @@
 import React from 'react'
 import dynamic from 'next/dynamic'
-import styled from 'styled-components'
+import styled, { css } from 'styled-components'
 
 import CardSection from './CardSection'
 import TextSection from './TextSection'
@@ -9,7 +9,6 @@ import Section from './Section'
 import TextImageSplit from './TextImageSplit'
 import VideoSection from './VideoSection'
 import Tabs from '../elements/Tabs'
-import { spacing } from '../../styles/utilities'
 import Stagger from '@heydays/animation/Stagger'
 
 const sectionTypes = {
@@ -23,11 +22,13 @@ const sectionTypes = {
   videoSection: VideoSection
 }
 
-const StyledPageBuilder = styled.div`
-  .PageBuilder__item {
-    ${spacing.section('mt')};
-  }
-`
+const StyledPageBuilder = styled.div(
+  ({ theme }) => css`
+    .PageBuilder__item {
+      ${theme.spacing.section('mt')};
+    }
+  `
+)
 
 const PageBuilder = ({ sections }) => {
   return (

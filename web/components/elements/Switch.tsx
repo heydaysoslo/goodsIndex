@@ -3,7 +3,14 @@ import styled, { css } from 'styled-components'
 import { motion } from 'framer-motion'
 import Emoji from './Emoji'
 
-const Switch = ({ className, onClick, state, size }) => {
+type Props = {
+  state: boolean
+  size?: number
+  className?: string
+  onClick: () => void
+}
+
+const Switch: React.FC<Props> = ({ className, onClick, state, size = 150 }) => {
   return (
     <button
       className={className}
@@ -22,7 +29,7 @@ const Switch = ({ className, onClick, state, size }) => {
           whileTap={{ scale: 1.1 }}
           animate={state ? { x: size - size / 2.2 } : { x: 0 }}
         >
-          <Emoji>{state ? '🌚' : '🌝'}</Emoji>
+          <Emoji label="moon emoji">{state ? '🌚' : '🌝'}</Emoji>
         </motion.div>
       </motion.div>
     </button>

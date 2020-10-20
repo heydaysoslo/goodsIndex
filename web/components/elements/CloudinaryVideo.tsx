@@ -1,8 +1,9 @@
 import React, { useRef, useLayoutEffect, useState } from 'react'
 import styled, { css } from 'styled-components'
+import { CloudinaryNode } from 'types'
 
-import { Button } from '.'
 import { cldGetVideoUrl } from '../../utils/cloudinary'
+import Button from './Button'
 
 /*
 
@@ -19,13 +20,21 @@ https://res.cloudinary.com/<cloud name>/video/upload/<public ID>.<video format f
 "https://res.cloudinary.com/handsomefrank/video/upload/v1590428051/animation/Abbey_Lossing_resolutions_pndo2d.mp4"
 */
 
-const CloudinaryVideo = ({
+type Props = {
+  node: CloudinaryNode
+  className?: string
+  options: {
+    blur?: boolean
+  }
+}
+
+const CloudinaryVideo: React.FC<Props> = ({
   node,
   className,
-  options = { blur: true, autoPlay: true }
+  options = { blur: false }
 }) => {
   const videoUrl = node ? cldGetVideoUrl(node, options) : ''
-  const player = useRef(null)
+  const player = useRef<HTMLVideoElement>(null)
   const [shouldPlay, setShouldPlay] = useState(false)
 
   useLayoutEffect(() => {
@@ -38,23 +47,13 @@ const CloudinaryVideo = ({
 
   return (
     <div className={className}>
-      {!options.autoPlay && !shouldPlay && (
-        <Button onClick={() => setShouldPlay(true)}>Play</Button>
-      )}
+      <Button onClick={() => setShouldPlay(true)}>Play</Button>
       {/* eslint-disable jsx-a11y/media-has-caption */}
-      <video
-        ref={player}
-        width={node.width}
-        height={node.height}
-        autoPlay={options.autoPlay}
-        loop={options.autoPlay}
-        muted={options.autoPlay}
-        controls={!options.autoPlay && shouldPlay}
-        playsInline
-      >
-        {videoUrl.map(({ src, type }) => {
-          return <source key={`${type}-${src}`} src={src} type={type} />
-        })}
+      <video ref={player} width={node.width} height={node.height} controls>
+        {Array.isArray(videoUrl) &&
+          videoUrl.map(({ src, type }) => {
+            return <source key={`${type}-${src}`} src={src} type={type} />
+          })}
         Your browser does not support the video tag :(
       </video>
       {/* eslint-enable jsx-a11y/media-has-caption */}
@@ -81,11 +80,11 @@ export default styled(CloudinaryVideo)(
       left: 0;
       border-radius: 0;
       border-width: 0;
-      color: ${theme.colors.white};
+      color: white;
 
       &:hover {
         background: transparent;
-        color: ${theme.colors.white};
+        color: white;
       }
     }
   `

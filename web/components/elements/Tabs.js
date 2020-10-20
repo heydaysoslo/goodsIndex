@@ -4,7 +4,7 @@ import styled, { css } from 'styled-components'
 import keyCodes from '../../utils/keyCodes'
 
 import Editor from '../editor'
-import { bp, remSize } from '../../styles/utilities'
+import { remSize } from '../../styles/utilities'
 
 /**
  * https://www.w3.org/TR/wai-aria-practices/examples/tabs/tabs-1/tabs.html
@@ -138,11 +138,11 @@ const TabPanel = ({ className, children, tab, isTabActive, ...props }) => {
   )
 }
 
-const StyledTabs = styled(Tabs)(props => {
+const StyledTabs = styled(Tabs)(({ theme: t }) => {
   return css`
-    ${bp.above.lg`
-    display: flex;
-  `}
+    ${t.bp.lg} {
+      display: flex;
+    }
     .window {
       background: red;
       flex-grow: 1;
@@ -153,11 +153,11 @@ const StyledTabs = styled(Tabs)(props => {
       display: flex;
       justify-content: space-between;
 
-      ${bp.above.lg`
+      ${t.bp.lg} {
         width: ${remSize(400)};
         flex-direction: column;
         justify-content: flex-start;
-    `}
+      }
     }
   `
 })
@@ -168,9 +168,9 @@ StyledTabs.Trigger = styled(TabTrigger)(
     flex-grow: 1;
     background: ${isTabActive ? theme.colors.primary : theme.colors.secondary};
 
-    ${bp.above.lg`
+    ${theme.bp.lg} {
       flex-grow: 0;
-    `}
+    }
   `
 )
 

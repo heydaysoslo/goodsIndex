@@ -1,6 +1,5 @@
 import React from 'react'
 import styled, { css } from 'styled-components'
-import { spacing } from 'styles/utilities'
 import Editor from './editor'
 
 const TagCategory = ({ className, tag }) => {
@@ -15,6 +14,6 @@ const TagCategory = ({ className, tag }) => {
 export default styled(TagCategory)(
   ({ theme }) => css`
     border: 1px solid black;
-    ${spacing.md('mb,p, mt')};
+    ${theme.spacing.md('mb,p, mt')};
   `
 )

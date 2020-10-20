@@ -1,5 +1,6 @@
 import React from 'react'
 import styled, { css } from 'styled-components'
+import { aspect, CloudinaryNode } from 'types'
 import { getImageSrc, getAspect } from '../../utils/cloudinary'
 
 /*
@@ -7,7 +8,12 @@ Image transformations:
 https://cloudinary.com/documentation/image_transformation_reference
 */
 
-const CloudinaryImage = ({ node, aspectRatio = null }) => {
+type Props = {
+  node: CloudinaryNode
+  aspectRatio?: aspect
+}
+
+const CloudinaryImage: React.FC<Props> = ({ node, aspectRatio = null }) => {
   if (!node) {
     return null
   }
@@ -23,7 +29,7 @@ const CloudinaryImage = ({ node, aspectRatio = null }) => {
   const src = getImageSrc(node?.cldImage ? node.cldImage : node, ratioValue)
   const ratioStyle = ratioValue
     ? { paddingBottom: `${100 / ratioValue}%` }
-    : null
+    : undefined
   return (
     <Wrapper>
       <div className="spacer" style={ratioStyle} />

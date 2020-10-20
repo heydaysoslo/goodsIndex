@@ -1,5 +1,5 @@
 import { useState, useEffect, useCallback } from 'react'
-import { breakpoints } from '../../styles/themes'
+import { useTheme } from 'styled-components'
 
 function useMedia(queries, values, defaultValue) {
   // Array containing a media query list for each query
@@ -45,7 +45,8 @@ function useMedia(queries, values, defaultValue) {
  */
 
 export default function useMediaQuery() {
-  const keys = Object.keys(breakpoints)
+  const theme = useTheme()
+  const keys = Object.keys(theme.breakpoints)
   const cssBreakpoints = keys.map(
     (key, index) =>
       `(min-width: ${breakpoints[key]}px) ${

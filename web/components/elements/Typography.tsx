@@ -1,38 +1,54 @@
-import styled, { css } from 'styled-components'
+import styled, {
+  css,
+  DefaultTheme,
+  FlattenSimpleInterpolation
+} from 'styled-components'
 
-import { fonts } from '../../styles/utilities'
+import { applyModifier } from '../../styles/utilities'
 
 type Modifiers = 'large' | 'small'
 
-type Props = {
-  modifiers?: Modifiers | Modifiers[]
+type PModifiers = {
+  theme: DefaultTheme
+  modifiers?: Modifiers | Modifiers[] | null | undefined
 }
 
-export const P = styled.p<Props>(
-  ({ theme, modifiers }) => css`
-    ${fonts?.body?.()}
-    ${modifiers === 'large' || modifiers?.includes?.('large')
-      ? css`
-          font-size: 2rem;
-        `
-      : ''}
+export const P = styled.p<PModifiers>(
+  ({ theme, modifiers = null }) => css`
+    ${!modifiers &&
+      css`
+        ${theme.fonts.body()}
+      `}
+    ${applyModifier(
+      'small',
+      css`
+        ${theme.fonts.small()};
+      `
+    )}
+    ${applyModifier(
+      'large',
+      css`
+        ${theme.fonts.title()};
+        text-transform: uppercase;
+      `
+    )}
   `
 )
 
 export const H1 = styled.h1(
   ({ theme }) => css`
-    ${fonts?.h1?.()}
+    ${theme.fonts.h1()}
   `
 )
 
 export const H2 = styled.h2(
   ({ theme }) => css`
-    ${fonts?.h1?.()}
+    ${theme.fonts.h2()}
   `
 )
 
 export const H3 = styled.h3(
   ({ theme }) => css`
-    ${fonts?.title?.()}
+    ${theme.fonts.title?.()}
   `
 )

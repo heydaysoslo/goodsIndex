@@ -1,9 +1,14 @@
 import React from 'react'
 import CloudinaryImage from '../elements/CloudinaryImage'
 import CloudinaryBackgroundVideo from '../elements/CloudinaryBackgroundVideo'
+import { aspect, CloudinaryNode } from 'types'
 
-const CloudinaryMediaResolver = ({ node, aspectRatio }) => {
-  const isNested = node?.hasOwnProperty('image')
+type Props = {
+  node: CloudinaryNode
+  aspectRatio?: aspect
+}
+
+const CloudinaryMediaResolver: React.FC<Props> = ({ node, aspectRatio }) => {
   if (
     node?.cldImage?.resource_type === 'image' ||
     node?.resource_type === 'image'
@@ -13,7 +18,7 @@ const CloudinaryMediaResolver = ({ node, aspectRatio }) => {
     node?.cldImage?.resource_type === 'video' ||
     node?.resource_type === 'video'
   ) {
-    return <CloudinaryBackgroundVideo node={isNested ? node?.image : node} />
+    return <CloudinaryBackgroundVideo node={node} />
   }
   return null
 }

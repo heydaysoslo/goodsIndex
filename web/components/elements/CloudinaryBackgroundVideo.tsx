@@ -2,6 +2,7 @@ import React, { useRef, useLayoutEffect } from 'react'
 import styled, { css } from 'styled-components'
 import { useInView } from 'react-intersection-observer'
 import { cldGetVideoUrl } from '../../utils/cloudinary'
+import { CloudinaryNode } from 'types'
 
 /*
 
@@ -17,14 +18,21 @@ https://cloudinary.com/documentation/video_transformation_reference
 https://res.cloudinary.com/<cloud name>/video/upload/<public ID>.<video format file extension>
 "https://res.cloudinary.com/handsomefrank/video/upload/v1590428051/animation/Abbey_Lossing_resolutions_pndo2d.mp4"
 */
+type Props = {
+  node: CloudinaryNode
+  className?: string
+  options?: {
+    blur?: boolean
+  }
+}
 
-const CloudinaryBackgroundVideo = ({
+const CloudinaryBackgroundVideo: React.FC<Props> = ({
   node,
   className,
-  options = { blur: true }
+  options
 }) => {
   const videoUrl = node ? cldGetVideoUrl(node, options) : ''
-  const player = useRef(null)
+  const player = useRef<HTMLVideoElement>(null)
   const [inViewRef, inView] = useInView()
 
   // Toggle play/pause on enter/leave view
@@ -51,9 +59,10 @@ const CloudinaryBackgroundVideo = ({
         muted
         playsInline
       >
-        {videoUrl.map(({ src, type }) => {
-          return <source key={`${type}-${src}`} src={src} type={type} />
-        })}
+        {Array.isArray(videoUrl) &&
+          videoUrl.map(({ src, type }) => {
+            return <source key={`${type}-${src}`} src={src} type={type} />
+          })}
         Your browser does not support the video tag :(
       </video>
     </div>

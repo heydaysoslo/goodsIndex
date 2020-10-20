@@ -1,14 +1,24 @@
 import { css, DefaultTheme } from 'styled-components'
 
-import { remSize } from './utilities/Converters'
-import { BorderProps } from '../types'
+import { remSize } from '../utilities/Converters'
+import breakpointsFactory, {
+  bp as bpObject
+} from '../utilities/breakpointsFactory'
+import spacingFactory from '../utilities/spacingFactory'
+import fontFactory, { fontFuncs } from 'styles/utilities/fontFactory'
+import color from 'styles/utilities/Colors'
+
+const baseColors = {
+  green: '#687C66',
+  white: 'white'
+}
 
 export const colors = {
-  primary: 'red',
-  secondary: 'green',
-  text: 'black',
-  border: 'black',
-  background: 'white'
+  ...baseColors,
+  primary: baseColors.green,
+  text: baseColors.green,
+  border: baseColors.green,
+  background: baseColors.white
 }
 
 export const breakpoints = {
@@ -25,9 +35,11 @@ export const spacingUnit = {
   sm: remSize(10),
   md: remSize(15),
   lg: remSize(40),
-  xl: remSize(80),
   section: remSize(160),
-  gutter: remSize(40)
+  gutter: remSize(40),
+  gap: remSize(20),
+  container: remSize(1440),
+  pixel: '1px'
 }
 
 export const responsiveSpacing = {
@@ -74,36 +86,21 @@ export const fontFamily = {
   serif: `'Suisse Works', times, serif`
 }
 
-const fontDefs = {
-  xs: '16px/1.2'
-}
-
 export const responsiveFonts = {
-  small: fontDefs.xs,
+  small: '24px/32px',
   body: {
-    xs: fontDefs.xs,
-    lg: '18px/1.2'
+    xs: '32px/1.375'
   },
-  title: {
-    xs: fontDefs.xs,
-    lg: '24px/1.2'
-  },
+  title: '24px/1.2',
   h1: {
-    xs: {
-      size: '40px/50px',
-      css: css`
-        text-transform: uppercase;
-      `
-    },
+    xs: '40px/50px',
     lg: '60px/1.2'
   },
   h2: {
-    xs: '24px/1.2',
-    lg: '40px/1.2'
+    xs: '48px/1.16666666666'
   },
   h3: {
-    xs: fontDefs.xs,
-    lg: '24px/1.2'
+    xs: '24px/1.2'
   }
 }
 
@@ -113,6 +110,13 @@ export const aspect = {
   square: 1,
   widescreen: 9 / 16,
   panorama: 11 / 16
+}
+
+export const elevation = {
+  1: 9,
+  2: 99,
+  3: 999,
+  4: 9999
 }
 
 export const contentWidth = {
@@ -132,48 +136,57 @@ export const trans = {
 }
 
 export const borderWidth = {
-  small: remSize(1),
+  small: remSize(2),
   large: remSize(3)
 }
 
+/**
+ * Usage:
+ * {
+ *  border-left: ${theme.border.large()}
+ * }
+ */
 export const border = {
-  large: (prop: BorderProps) => ({ theme }: { theme: DefaultTheme }) => css`
-    ${prop}: ${theme.borderWidth.large} solid ${theme.colors.border};
-  `,
-  small: (prop: BorderProps) => ({ theme }: { theme: DefaultTheme }) => css`
-    ${prop}: ${theme.borderWidth.small} solid ${theme.colors.border};
-  `
+  large: () => ({ theme }) =>
+    `${theme.borderWidth.large} solid ${theme.colors.border};`,
+  small: () => ({ theme }) =>
+    `${theme.borderWidth.small} solid ${theme.colors.border};`
 }
 
-export const theme: DefaultTheme = {
+const bp: bpObject = breakpointsFactory(breakpoints)
+const spacing = spacingFactory({
+  responsiveSpacing,
+  bp: {
+    sm: bp.sm,
+    md: bp.md,
+    lg: bp.lg,
+    xl: bp.xl,
+    xxl: bp.xxl
+  }
+})
+
+const fonts: fontFuncs = fontFactory({ responsiveFonts, bp })
+
+const theme: DefaultTheme = {
+  name: 'defaultTheme',
   colors,
   breakpoints,
+  color,
+  bp,
   spacingUnit,
   grid,
   fontFamily,
   aspect,
+  elevation,
+  fonts,
   responsiveFonts,
+  spacing,
+  responsiveSpacing,
   contentWidth,
   trans,
   icons,
   borderWidth,
   border
-}
-
-export const darkTheme = {
-  ...theme,
-  colors: {
-    primary: 'green',
-    secondary: 'orange',
-    text: 'white',
-    border: 'red',
-    background: 'rgba(0,0,0,.8)'
-  },
-  defaultStyle: ({ theme }) => css`
-    body {
-      background: ${theme?.colors?.background};
-    }
-  `
 }
 
 export default theme

@@ -8,8 +8,7 @@ const templates = {
   default: 'Page'
 }
 
-export default function TemplateResolver(props) {
-  const { page } = props
+export default function TemplateResolver({ page }) {
   const [Component, setComponent] = useState(null)
 
   useEffect(() => {

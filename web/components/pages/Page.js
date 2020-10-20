@@ -4,7 +4,6 @@ import styled, { css } from 'styled-components'
 import Pagebuilder from '../pagebuilder/Pagebuilder'
 import { H1, P } from '@heydays/Typography'
 import Container from '@heydays/Container'
-import { spacing } from '../../styles/utilities'
 
 const Page = ({ className, title, content, pagebuilder, ...props }) => {
   return (
@@ -29,10 +28,10 @@ const Page = ({ className, title, content, pagebuilder, ...props }) => {
 export default styled(Page)(
   ({ theme }) => css`
     .Page__header {
-      ${spacing.sm('mt')}
+      ${theme.spacing.sm('mt')}
     }
     .Page__content {
-      ${spacing.sm('mt')}
+      ${theme.spacing.sm('mt')}
     }
   `
 )

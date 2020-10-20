@@ -2,14 +2,14 @@ import React, { useState, useEffect } from 'react'
 import styled, { css } from 'styled-components'
 
 import Pagebuilder from '../pagebuilder/Pagebuilder'
-import { H1, P } from '@heydays/Typography'
+import { H1, H2, P } from '@heydays/Typography'
 import Container from '@heydays/Container'
-import { spacing } from '../../styles/utilities'
 import Search from '../Search'
 import Editor from '../editor'
 import Filter from '../Filter'
 import Button from '@heydays/Button'
 import TagCategory from 'components/TagCategory'
+import Spacer from '@heydays/Spacer'
 
 const FrontPage = ({
   className,
@@ -49,28 +49,21 @@ const FrontPage = ({
   return (
     <div className={className}>
       <Container className="Page__container">
-        <header className="Page__header">
-          <P>FrontPage</P>
-          {title && <H1>{title}</H1>}
-        </header>
-        <Search items={glossary} setSearchTerm={setSearchTerm} />
         <Filter tags={tags} setTag={setTag} tag={tag} />
-        {searchTerm ||
-          (tag && (
-            <Button
-              onClick={() => {
-                setTag(null)
-                setSearchTerm(null)
-              }}
-            >
-              Reset
-            </Button>
-          ))}
+        <Search items={glossary} setSearchTerm={setSearchTerm} />
         {tag && <TagCategory tag={tag} />}
         {items.map(item => (
-          <li key={item._id}>
-            <p>{item.title}</p>
-            <Editor blocks={item.content} />
+          <li key={item._id} className="item">
+            <div className="content">
+              <H2>{item.title}</H2>
+              <Spacer size="sm" />
+              <Editor blocks={item.content} />
+            </div>
+            <div>
+              {item?.tags?.map(tag => (
+                <Button modifiers="small">{tag.title}</Button>
+              ))}
+            </div>
           </li>
         ))}
         {pagebuilder && (
@@ -88,21 +81,26 @@ const FrontPage = ({
 export default styled(FrontPage)(
   ({ theme }) => css`
     .Page__header {
-      ${spacing.sm('mt')}
+      ${theme.spacing.sm('mt')}
     }
     .Page__content {
-      ${spacing.sm('mt')}
+      ${theme.spacing.sm('mt')}
     }
 
     p {
       margin-bottom: 0;
     }
 
-    li {
+    .item {
       list-style: none;
-      padding: 0;
-      ${spacing.md('mb')};
-      display: block;
+      ${theme.spacing.md('py')};
+      border-bottom: ${theme.border.small};
+      display: flex;
+      justify-content: space-between;
+
+      .content {
+        max-width: 50ch;
+      }
     }
   `
 )

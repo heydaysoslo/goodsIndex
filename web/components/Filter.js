@@ -1,23 +1,24 @@
 import React from 'react'
 import styled, { css } from 'styled-components'
 import Button from '@heydays/Button'
-import { spacing } from '../styles/utilities'
 
 const Filter = ({ className, tags, setTag, tag: filterTag }) => {
-  console.log('Filter -> filterTag', filterTag)
   return (
     <div className={className}>
-      {tags.map(tag => (
+      <p className="sans small">Filter by</p>
+      {tags.map((tag, i) => (
         <Button
           className="filter-button"
           key={tag._id}
           onClick={() => setTag(tag)}
-          modifiers={
+          modifiers={[
             tag.title.toLowerCase() === filterTag?.title?.toLowerCase() &&
-            'active'
-          }
+              'active',
+            'small'
+          ]}
         >
           {tag.title}
+          <sup>{i}</sup>
         </Button>
       ))}
     </div>
@@ -26,12 +27,17 @@ const Filter = ({ className, tags, setTag, tag: filterTag }) => {
 
 export default styled(Filter)(
   ({ theme }) => css`
-    ${spacing.sm('mx', { multiplier: -1 })};
-    ${spacing.md('mb')};
+    position: sticky;
+    top: var(--header-height);
+    display: flex;
+    align-items: baseline;
+    ${theme.spacing.md('py')};
     width: 100%;
+    max-width: 100%;
+    overflow-x: overflow;
 
     .filter-button {
-      ${spacing.sm('mx,mb')};
+      ${theme.spacing.xs(['mx', 'mb'])};
     }
   `
 )
