@@ -1,6 +1,7 @@
 import Button from '@heydays/Button'
 import Stack from '@heydays/Stack'
-import React from 'react'
+import { AnimateSharedLayout, motion } from 'framer-motion'
+import React, { useState } from 'react'
 import styled, { css } from 'styled-components'
 
 type Sort = {
@@ -11,24 +12,66 @@ type Sort = {
 }
 
 const Sort = ({ className, sortOptions, sort: currentSort, setSort }) => {
+  const [isAnimationDone, setIsAnimationDone] = useState(true)
   return (
     <div className={className}>
-      <Stack size="xs" direction="row">
-        {sortOptions.map(sort => (
-          <Button
-            className="sort-button"
-            key={`${sort}`}
-            onClick={() =>
-              currentSort === sort ? setSort('Newest first') : setSort(sort)
-            }
-            modifiers={sort === currentSort ? ['small', 'active'] : 'small'}
-          >
-            {sort}
-          </Button>
-        ))}
-      </Stack>
+      <AnimateSharedLayout type="crossfade">
+        <Stack space="xs" direction="row">
+          {sortOptions.map((sort: string) => (
+            <Button
+              className="sort-button"
+              key={`${sort}`}
+              onClick={() => {
+                currentSort === sort ? setSort('Newest first') : setSort(sort)
+                setIsAnimationDone(false)
+              }}
+              modifiers={
+                sort === currentSort && isAnimationDone
+                  ? ['small', 'active']
+                  : ['small']
+              }
+            >
+              {sort === currentSort && (
+                <motion.div
+                  onViewportBoxUpdate={() => {
+                    setIsAnimationDone(true)
+                  }}
+                  animate
+                  layoutId="backdrop"
+                  className="backdrop"
+                />
+              )}
+              <span className="text">{sort}</span>
+            </Button>
+          ))}
+        </Stack>
+      </AnimateSharedLayout>
     </div>
   )
 }
 
-export default styled(Sort)(({ theme }) => css``)
+export default styled(Sort)(
+  ({ theme }) => css`
+    .sort-button {
+      position: relative;
+      margin-bottom: ${theme?.spacingUnit?.xs};
+
+      ${theme.bp.lg} {
+        margin-bottom: 0;
+      }
+    }
+    .backdrop {
+      position: absolute;
+      top: -1px;
+      left: -1px;
+      width: calc(100% + 2px);
+      height: calc(100% + 2px);
+      background: ${theme.colors.text};
+      border-radius: ${theme.radius.button};
+    }
+    .text {
+      position: relative;
+      z-index: 1;
+    }
+  `
+)

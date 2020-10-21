@@ -15,7 +15,7 @@ const Button: React.FC<Props> = ({ children, className, ...props }) => {
   return (
     <button
       className={className}
-      onMouseDown={e => e.preventDefault}
+      onMouseDown={e => e.preventDefault()}
       {...props}
     >
       {children}
@@ -29,14 +29,13 @@ export default styled(Button)(
     background: none;
     display: inline-block;
     border: ${theme.border.small};
-    border-radius: ${remSize(60)};
+    border-radius: ${theme.radius.button};
     color: ${theme.colors.text};
     transition: 0.15s ease background-color, color;
     cursor: pointer;
 
     &:hover {
-      background-color: ${theme.colors.text};
-      color: ${theme.colors.background};
+      border-style: dashed;
     }
 
     ${applyModifier(
@@ -45,7 +44,7 @@ export default styled(Button)(
         ${theme.fonts.small()};
         padding-left: 0.5em;
         padding-right: 0.5em;
-        padding-top: 0.1em;
+        padding-top: 0.2em;
         padding-bottom: 0.2em;
       `
     )}
@@ -53,22 +52,29 @@ export default styled(Button)(
     ${applyModifier(
       'active',
       css`
-        background-color: ${theme.colors.text};
         color: ${theme.colors.background};
+
+        &:hover {
+          border-style: solid;
+        }
       `
     )}
 
     ${applyModifier(
       'disabled',
       css`
-        opacity: 0.5;
-        cursor: none;
+        pointer-events: none;
       `
     )}
     ${applyModifier(
       'noButton',
       css`
         border: none;
+        background: none;
+
+        &:hover {
+          border: none;
+        }
       `
     )}
   `

@@ -1,3 +1,4 @@
+import Spacer from '@heydays/Spacer'
 import { createGlobalStyle, css } from 'styled-components'
 import { globalTypeStyle } from './Typography'
 
@@ -78,6 +79,14 @@ export const GlobalStyle = createGlobalStyle(
       border-radius: 0;
     }
 
+    input[type="search"]::-webkit-search-decoration,
+    input[type="search"]::-webkit-search-cancel-button,
+    input[type="search"]::-webkit-search-results-button,
+    input[type="search"]::-webkit-search-results-decoration {
+    display: none;
+    }
+
+
     input[type='number'] {
       appearance: textfield;
     }
@@ -126,5 +135,11 @@ export const GlobalStyle = createGlobalStyle(
       })}
     }
   `}
+  ${process.env.NODE_ENV === 'development' &&
+    css`
+      body.showSpacing ${Spacer} {
+        /* background: orange; */
+      }
+    `}
   `
 )

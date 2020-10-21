@@ -31,11 +31,11 @@ export const breakpoints = {
 }
 
 export const spacingUnit = {
-  xs: remSize(5),
-  sm: remSize(10),
-  md: remSize(15),
-  lg: remSize(40),
-  section: remSize(160),
+  xs: remSize(6),
+  sm: remSize(12),
+  md: remSize(12 * 2),
+  lg: remSize(12 * 3),
+  section: remSize(12 * 5),
   gutter: remSize(40),
   gap: remSize(20),
   container: remSize(1440),
@@ -44,32 +44,25 @@ export const spacingUnit = {
 
 export const responsiveSpacing = {
   xs: {
-    xs: remSize(5),
-    lg: remSize(10)
+    xs: 'xs'
   },
   sm: {
-    xs: remSize(10),
-    lg: remSize(15)
+    xs: 'sm'
   },
   md: {
-    xs: remSize(15),
-    lg: 'lg'
+    xs: 'md'
   },
   lg: {
-    xs: 'lg',
-    lg: '12rem'
+    xs: 'lg'
   },
   section: {
-    xs: remSize(100)
+    xs: 'section'
   },
   gutter: {
-    xs: 'md',
-    lg: 'gutter'
+    xs: 'gutter'
   },
   container: {
-    xs: '10px',
-    md: 'lg',
-    lg: '5vw'
+    xs: 'gutter'
   },
   pixel: {
     xs: '1px'
@@ -117,6 +110,10 @@ export const elevation = {
   2: 99,
   3: 999,
   4: 9999
+}
+
+export const radius = {
+  button: remSize(60)
 }
 
 export const contentWidth = {
@@ -178,6 +175,7 @@ const theme: DefaultTheme = {
   fontFamily,
   aspect,
   elevation,
+  radius,
   fonts,
   responsiveFonts,
   spacing,

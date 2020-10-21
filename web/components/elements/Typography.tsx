@@ -15,6 +15,7 @@ type PModifiers = {
 
 export const P = styled.p<PModifiers>(
   ({ theme, modifiers = null }) => css`
+  letter-spacing: -.3px;
     ${!modifiers &&
       css`
         ${theme.fonts.body()}

@@ -27,6 +27,7 @@ import {
   icons,
   trans,
   borderWidth,
+  radius,
   elevation
 } from './themes/defaultTheme'
 import { bp, BreakpointSizes } from './utilities/breakpointsFactory'
@@ -56,6 +57,7 @@ declare module 'styled-components' {
     fontFamily: typeof fontFamily
     fonts: fontFuncs
     aspect: typeof aspect
+    radius: typeof radius
     elevation: typeof elevation
     contentWidth: typeof contentWidth
     icons: typeof icons
@@ -70,5 +72,5 @@ declare module 'styled-components' {
   export function createGlobalStyle(
     strings: TemplateStringsArray,
     ...interpolations: SimpleInterpolation[]
-  ): React.ComponentClass;
+  ): React.ComponentClass
 }

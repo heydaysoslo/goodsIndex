@@ -32,8 +32,10 @@ export const globalTypeStyle = ({ theme }) => css`
   }
 
   sup {
+    position: relative;
     vertical-align: super;
-    font-size: ${remSize(8)};
+    font-size: 0.6em;
+    padding-left: 0.15em;
   }
 
   *:focus {

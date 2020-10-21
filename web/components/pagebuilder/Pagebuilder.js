@@ -17,7 +17,7 @@ const sectionTypes = {
 
 const StyledPageBuilder = styled.div(
   ({ theme }) => css`
-    .PageBuilder__item {
+    .PageBuilder__item:not(:first-of-type) {
       ${theme.spacing.section('mt')};
     }
   `

@@ -9,7 +9,7 @@ const Search = ({ className, setSearchTerm }) => {
   }
   const theme = useTheme()
   return (
-    <div className={className}>
+    <label for="search-input" className={className}>
       <svg
         className="icon"
         viewBox="0 0 25 25"
@@ -27,12 +27,13 @@ const Search = ({ className, setSearchTerm }) => {
       </svg>
 
       <input
+        id="search-input"
         className="searchBox"
         type="search"
         placeholder="Search"
         onChange={handleSearch}
       />
-    </div>
+    </label>
   )
 }
 
@@ -42,6 +43,10 @@ export default styled(Search)(
     align-items: center;
     border: ${theme.border.small};
     ${theme.spacing.xs(['py', 'pl'])};
+
+    &:hover {
+      border-style: dashed;
+    }
 
     .icon {
       width: 0.6em;

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import styled, { css } from 'styled-components'
-import { formatDistanceToNow } from 'date-fns'
+import findIndex from 'lodash/findIndex'
 
 import Button from '@heydays/Button'
 import Spacer from '@heydays/Spacer'
@@ -10,12 +10,12 @@ import Editor from 'components/editor'
 import Filter from 'components/Filter'
 import Search from 'components/Search'
 import Sort from 'components/Sort'
-import TagCategory from 'components/TagCategory'
 import Stack from '@heydays/Stack'
+import Stagger from '@heydays/animation/Stagger'
 
 const Glossary = ({ className, glossary, tags }) => {
   const [tag, setTag] = useState(null)
-  const [sort, setSort] = useState(null)
+  const [sort, setSort] = useState('Newest first')
   const [searchTerm, setSearchTerm] = useState(null)
   const [items, setItems] = useState(glossary)
 
@@ -50,12 +50,11 @@ const Glossary = ({ className, glossary, tags }) => {
   }, [tag, searchTerm, sort])
   return (
     <div className={className}>
-      <Spacer size="sm" />
       <Sticky top="var(--header-height)">
-        <Stack size="sm">
+        <Stack space="xs" className="filter-container">
           <Filter tags={tags} setTag={setTag} tag={tag} />
           <Sort
-            sortOptions={['Newest first', 'Alphabetical', 'Oldest first']}
+            sortOptions={['Newest first', 'Alphabetical']}
             setSort={setSort}
             sort={sort}
           />
@@ -63,32 +62,53 @@ const Glossary = ({ className, glossary, tags }) => {
         </Stack>
       </Sticky>
       <Spacer />
-      {tag && <TagCategory tag={tag} />}
-      {items &&
-        items.map(item => (
-          <li key={item._id} className="item">
-            <div className="content">
-              <H2>{item.title}</H2>
-              <p className="small">
-                {formatDistanceToNow(new Date(item._updatedAt), {
-                  addSuffix: true,
-                  includeSeconds: true
-                })}
-              </p>
-              <Spacer size="sm" />
-              <Editor blocks={item.content} />
-            </div>
-            <div>
-              {item?.tags?.map(tag => (
-                <Button key={tag._id} modifiers="small">
-                  {tag.title}
-                </Button>
-              ))}
-            </div>
-          </li>
-        ))}
+      {/* {tag && <TagCategory tag={tag} />} */}
+      <Stagger as="ul">
+        {items &&
+          items.map(item => (
+            <li key={item._id} className="item">
+              <Stack space="sm" className="content">
+                <H2>{item.title}</H2>
+                {/* <Spacer size="xs" /> */}
+                {/* <p className="small">
+                  {formatDistanceToNow(new Date(item._updatedAt), {
+                    addSuffix: true,
+                    includeSeconds: true
+                  })}
+                </p> */}
+                <Editor blocks={item.content} />
+              </Stack>
+              <Stack space="xs">
+                {item?.tags?.map(tag => (
+                  <Button modifiers="disabled" key={tag._id} modifiers="small">
+                    {tag.title}
+                    <sup>{findIndex(tags, o => o.title === tag.title) + 1}</sup>
+                  </Button>
+                ))}
+              </Stack>
+            </li>
+          ))}
+      </Stagger>
     </div>
   )
 }
 
-export default styled(Glossary)(({ theme }) => css``)
+export default styled(Glossary)(
+  ({ theme }) => css`
+    .filter-container {
+      background: ${theme.colors.background};
+      z-index: -1;
+    }
+    .item {
+      list-style: none;
+      ${theme.spacing.md('py')};
+      border-bottom: ${theme.border.small};
+      display: flex;
+      justify-content: space-between;
+
+      .content {
+        max-width: 50ch;
+      }
+    }
+  `
+)

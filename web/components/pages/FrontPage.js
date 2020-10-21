@@ -36,17 +36,5 @@ export default styled(FrontPage)(
     p {
       margin-bottom: 0;
     }
-
-    .item {
-      list-style: none;
-      ${theme.spacing.md('py')};
-      border-bottom: ${theme.border.small};
-      display: flex;
-      justify-content: space-between;
-
-      .content {
-        max-width: 50ch;
-      }
-    }
   `
 )
