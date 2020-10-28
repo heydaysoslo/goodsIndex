@@ -59,7 +59,9 @@ export const responsiveSpacing = {
     xs: 'section'
   },
   gutter: {
-    xs: 'gutter'
+    xs: '8px',
+    md: 'gap',
+    lg: 'gutter'
   },
   container: {
     xs: 'gutter'
@@ -80,9 +82,13 @@ export const fontFamily = {
 }
 
 export const responsiveFonts = {
-  small: '24px/32px',
+  small: {
+    xs: '20px/24px',
+    md: '24px/32px'
+  },
   body: {
-    xs: '32px/1.375'
+    xs: '24px/1.375',
+    lg: '32px/1.375'
   },
   title: '24px/1.2',
   h1: {
@@ -90,7 +96,8 @@ export const responsiveFonts = {
     lg: '60px/1.2'
   },
   h2: {
-    xs: '48px/1.16666666666'
+    xs: '32px/1.16666666666',
+    lg: '48px/1.16666666666'
   },
   h3: {
     xs: '24px/1.2'

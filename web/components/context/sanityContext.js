@@ -1,6 +1,6 @@
 import React, { createContext, useEffect, useState } from 'react'
 
-import { getAbout } from '../../lib/sanity'
+import { getAbout, getEnergy } from '../../lib/sanity'
 
 const defaultValue = {
   companyInfo: {},
@@ -13,18 +13,15 @@ export const SanityProvider = ({ children }) => {
   const [isLoading, setIsLoading] = useState(true)
   const [error, setError] = useState(true)
   const [about, setAbout] = useState()
+  const [energy, setEnergy] = useState()
   // const [companyInfo, setCompanyInfo] = useState({})
   // const [siteSettings, setSiteSettings] = useState({})
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        // const newCompanyInfo = await getCompanyInfo()
-        // const newSiteSettings = await getSettings()
-        // setCompanyInfo(newCompanyInfo[0])
-        // setSiteSettings(newSiteSettings)
-        const about = await getAbout()
-        setAbout(about)
+        setAbout(await getAbout())
+        setEnergy(await getEnergy())
         setIsLoading(false)
       } catch (err) {
         setIsLoading(false)
@@ -38,7 +35,8 @@ export const SanityProvider = ({ children }) => {
   return (
     <SanityContext.Provider
       value={{
-        about
+        about,
+        energy
       }}
     >
       {children}

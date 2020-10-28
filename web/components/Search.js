@@ -1,15 +1,17 @@
 import React from 'react'
 import styled, { css, useTheme } from 'styled-components'
-import Button from '@heydays/Button'
+import debounce from 'lodash/debounce'
 
 const Search = ({ className, setSearchTerm }) => {
-  const handleSearch = e => {
+  const handleSearch = debounce(e => {
     const searchTerm = e.target.value.toLowerCase()
     setSearchTerm(searchTerm)
-  }
+  }, 300)
+
   const theme = useTheme()
+
   return (
-    <label for="search-input" className={className}>
+    <label htmlFor="search-input" className={className}>
       <svg
         className="icon"
         viewBox="0 0 25 25"
@@ -31,7 +33,10 @@ const Search = ({ className, setSearchTerm }) => {
         className="searchBox"
         type="search"
         placeholder="Search"
-        onChange={handleSearch}
+        onChange={e => {
+          e.persist()
+          handleSearch(e)
+        }}
       />
     </label>
   )

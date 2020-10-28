@@ -16,7 +16,7 @@ const Sort = ({ className, sortOptions, sort: currentSort, setSort }) => {
   return (
     <div className={className}>
       <AnimateSharedLayout type="crossfade">
-        <Stack space="xs" direction="row">
+        <Stack space="sm" direction="row">
           {sortOptions.map((sort: string) => (
             <Button
               className="sort-button"
@@ -54,11 +54,6 @@ export default styled(Sort)(
   ({ theme }) => css`
     .sort-button {
       position: relative;
-      margin-bottom: ${theme?.spacingUnit?.xs};
-
-      ${theme.bp.lg} {
-        margin-bottom: 0;
-      }
     }
     .backdrop {
       position: absolute;

@@ -1,6 +1,14 @@
-import React from 'react'
+import React, { Fragment } from 'react'
 import styled, { css } from 'styled-components'
+import { nanoid } from 'nanoid'
+import useWhyDidYouUpdate from '@heydays/useWhyDidYouUpdate'
+
+const ID = nanoid()
+
+import { BreakpointKeys } from 'styles/utilities/breakpointsFactory'
 import Spacer, { SpacerProps } from './Spacer'
+
+type Direction = 'row' | 'column'
 
 type Props = {
   className?: string
@@ -14,9 +22,14 @@ type Props = {
   /**
    * Set the direction of the elements.
    * row for horizontal and column for vertical.
+   * Takes either a string or a responsive object of the values above.
    * @note defaults to column (vertical)
    */
-  direction?: 'row' | 'column'
+  direction?:
+    | Direction
+    | {
+        [key in BreakpointKeys]: Direction
+      }
   /**
    * Setting to true sets same space as others
    *
@@ -56,11 +69,11 @@ const Stack: React.FC<Props> = ({
         />
       )}
       {Array.isArray(children)
-        ? children.map((child, i) => (
-            <>
+        ? children.flat(1).map((child, i) => (
+            <Fragment key={`${ID}-${i}`}>
               {child}
               {i !== children.length - 1 && <Spacer size={space} />}
-            </>
+            </Fragment>
           ))
         : children}
       {spaceEndsEnd && (
@@ -76,9 +89,20 @@ const Stack: React.FC<Props> = ({
 }
 
 export default styled(Stack)(
-  ({ reverse, direction = 'column' }) => css`
+  ({ theme, reverse, direction = 'column' }) => css`
     display: flex;
-    flex-direction: ${direction};
+    ${typeof direction === 'string' &&
+      css`
+        flex-direction: ${direction};
+      `};
+    ${typeof direction === 'object' &&
+      Object.keys(
+        bp => css`
+          ${theme.bp[bp]} {
+            flex-direction: ${direction[bp]};
+          }
+        `
+      )}
     ${reverse
       ? css`
           flex-direction: ${direction}-reverse;

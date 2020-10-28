@@ -1,5 +1,6 @@
 import React from 'react'
 import styled, { css } from 'styled-components'
+import { BreakpointKeys } from 'styles/utilities/breakpointsFactory'
 
 type Sticky = {
   className?: string
@@ -9,6 +10,10 @@ type Sticky = {
    * @example var(--header-height) | 20px | 50rem
    */
   top: string
+  /**
+   * @note defaults to xs
+   */
+  from?: BreakpointKeys
 }
 
 const Sticky: React.FC<Sticky> = ({ className, children }) => {
@@ -16,8 +21,10 @@ const Sticky: React.FC<Sticky> = ({ className, children }) => {
 }
 
 export default styled(Sticky)(
-  ({ top }) => css`
-    position: sticky;
+  ({ theme, top, from = 'xs' }) => css`
+    ${theme.bp[from]} {
+      position: sticky;
+    }
     ${top
       ? css`
           top: ${top};

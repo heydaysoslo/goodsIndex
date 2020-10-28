@@ -2,7 +2,13 @@ import React from 'react'
 import styled, { css } from 'styled-components'
 import { applyModifier, remSize } from '../../styles/utilities'
 
-type Modifiers = 'secondary' | 'small' | 'active' | 'disabled' | 'noButton'
+type Modifiers =
+  | 'secondary'
+  | 'small'
+  | 'active'
+  | 'disabled'
+  | 'noButton'
+  | 'noButtonActive'
 
 type Props = {
   children: React.ReactNode
@@ -74,6 +80,18 @@ export default styled(Button)(
 
         &:hover {
           border: none;
+        }
+      `
+    )}
+    ${applyModifier(
+      'noButtonActive',
+      css`
+        border: none;
+        background: ${theme.color.rgba(theme.colors.text, 0.2)};
+
+        &:hover {
+          border: none;
+          background: ${theme.color.rgba(theme.colors.text, 0.2)};
         }
       `
     )}

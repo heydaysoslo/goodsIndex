@@ -13,6 +13,6 @@ export default styled(Container)(
   ({ theme }) => css`
     position: relative;
     max-width: 100%;
-    ${theme.spacing.container('px')}
+    ${theme.spacing.gutter('px')}
   `
 )

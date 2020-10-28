@@ -55,6 +55,11 @@ export const getAbout = () => {
   return client.fetch(query)
 }
 
+export const getEnergy = () => {
+  const query = `*[_id == 'energy']`
+  return client.fetch(query)
+}
+
 export const getSettings = () => {
   const query = `*[_type == 'siteSettings']{
     ...,

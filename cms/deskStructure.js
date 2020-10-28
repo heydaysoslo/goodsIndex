@@ -34,6 +34,7 @@ const hiddenDocTypes = listItem =>
     'person',
     'personOrder',
     'about',
+    'energy',
     'menu',
     'tag',
     'glossary',
@@ -108,6 +109,10 @@ export default () =>
       createSingleton('about', {
         withPreviews: true,
         icon: () => <EmojiIcon>🙋🏻‍♀️</EmojiIcon>
+      }),
+      createSingleton('energy', {
+        withPreviews: true,
+        icon: () => <EmojiIcon>⚡️</EmojiIcon>
       }),
       createDocsList('glossary'),
       createDocsList('tag'),

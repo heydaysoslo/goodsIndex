@@ -9,7 +9,33 @@ const Filter = ({ className, tags, setTag, tag: currentTag }) => {
   return (
     <div className={className}>
       <AnimateSharedLayout type="crossfade">
-        <Stack direction="row" space="xs">
+        <Stack direction="row" space="sm">
+          <Button
+            className="filter-button"
+            onClick={() => {
+              setTag(null)
+              setIsAnimationDone(false)
+            }}
+            modifiers={[
+              currentTag === null && isAnimationDone && 'active',
+              'small'
+            ]}
+          >
+            {currentTag === null && (
+              <motion.div
+                onViewportBoxUpdate={() => {
+                  setIsAnimationDone(true)
+                }}
+                animate
+                layoutId="backdrop"
+                className="backdrop"
+              />
+            )}
+            <span className="text">
+              All
+              <sup>0</sup>
+            </span>
+          </Button>
           {tags &&
             tags.map((tag, i) => (
               <Button
@@ -56,7 +82,7 @@ export default styled(Filter)(
     align-items: baseline;
     width: 100%;
     max-width: 100%;
-    overflow-x: overflow;
+    overflow-x: auto;
 
     .backdrop {
       position: absolute;
@@ -70,11 +96,6 @@ export default styled(Filter)(
 
     .filter-button {
       position: relative;
-      margin-bottom: ${theme?.spacingUnit?.xs};
-
-      ${theme.bp.lg} {
-        margin-bottom: 0;
-      }
     }
     .text {
       position: relative;

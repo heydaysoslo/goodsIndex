@@ -1,21 +1,15 @@
 import React, { useEffect, useRef, useState } from 'react'
 import styled, { css, useTheme } from 'styled-components'
-import {
-  AnimatePresence,
-  AnimateSharedLayout,
-  motion,
-  useMotionValue,
-  useTransform
-} from 'framer-motion'
+import { AnimatePresence, AnimateSharedLayout, motion } from 'framer-motion'
 
 import Container from './elements/Container'
 import Logo from './Logo'
-import Emoji from '@heydays/Emoji'
 import useWindowSize from '@heydays/useWindowSize'
 import Button from '@heydays/Button'
 import useSanity from '@heydays/useSanity'
 import PageBuilder from '@heydays/Pagebuilder'
 import Spacer from '@heydays/Spacer'
+import Stack from '@heydays/Stack'
 
 type Props = {
   className?: string
@@ -50,18 +44,10 @@ const AboutIcon = ({ isOn }) => {
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
     >
-      <path
+      <motion.path
+        animate={isOn ? { rotate: 180 } : { rotate: 0 }}
         d="M15.2773 27.1758C21.6406 27.1758 26.9023 21.9023 26.9023 15.5391C26.9023 9.1875 21.6289 3.90234 15.2656 3.90234C8.90234 3.90234 3.62891 9.1875 3.62891 15.5391C3.62891 21.9023 8.91406 27.1758 15.2773 27.1758ZM11.9023 9.46875C12.5938 7.72266 13.5547 6.46875 14.5977 6.08203V9.73828C13.625 9.71484 12.7344 9.62109 11.9023 9.46875ZM15.9453 6.08203C16.9766 6.46875 17.9375 7.72266 18.6289 9.46875C17.8086 9.62109 16.9062 9.71484 15.9453 9.73828V6.08203ZM18.4062 6.41016C19.6602 6.84375 20.7969 7.51172 21.7578 8.39062C21.2305 8.68359 20.6328 8.92969 19.9648 9.14062C19.543 8.05078 19.0156 7.125 18.4062 6.41016ZM8.77344 8.39062C9.73438 7.52344 10.8711 6.84375 12.125 6.41016C11.5273 7.125 10.9883 8.05078 10.5664 9.14062C9.89844 8.92969 9.30078 8.68359 8.77344 8.39062ZM21.0781 14.8594C21.0195 13.2305 20.7852 11.7188 20.3867 10.3828C21.2656 10.1133 22.0508 9.77344 22.6953 9.375C23.9492 10.875 24.7461 12.7734 24.8867 14.8594H21.0781ZM5.65625 14.8594C5.79688 12.7734 6.59375 10.875 7.83594 9.375C8.49219 9.77344 9.26562 10.1133 10.1445 10.3828C9.75781 11.7188 9.51172 13.2305 9.45312 14.8594H5.65625ZM15.9453 14.8594V11.0859C17.0352 11.0508 18.0781 10.9219 19.0508 10.7227C19.4141 11.9766 19.6367 13.3828 19.6953 14.8594H15.9453ZM10.8359 14.8594C10.8945 13.3828 11.1289 11.9766 11.4805 10.7227C12.4531 10.9219 13.4961 11.0508 14.5977 11.0859V14.8594H10.8359ZM5.64453 16.207H9.45312C9.5 17.8594 9.74609 19.4062 10.1445 20.7539C9.27734 21.0234 8.51562 21.3516 7.87109 21.75C6.60547 20.2266 5.79688 18.3164 5.64453 16.207ZM10.8359 16.207H14.5977V20.0508C13.4961 20.0859 12.4531 20.2031 11.4805 20.4141C11.1172 19.1484 10.8828 17.707 10.8359 16.207ZM15.9453 20.0508V16.207H19.6953C19.6484 17.707 19.4141 19.1484 19.0508 20.4141C18.0781 20.2031 17.0352 20.0859 15.9453 20.0508ZM20.3867 20.7539C20.7852 19.4062 21.0312 17.8594 21.0781 16.207H24.8984C24.7578 18.3164 23.9492 20.2383 22.6836 21.75C22.0273 21.3633 21.2539 21.0234 20.3867 20.7539ZM11.9023 21.668C12.7344 21.5156 13.625 21.4219 14.5977 21.3984V25.0547C13.5547 24.668 12.5938 23.4141 11.9023 21.668ZM15.9453 21.3984C16.9062 21.4219 17.8086 21.5156 18.6289 21.668C17.9375 23.4141 16.9766 24.668 15.9453 25.0547V21.3984ZM8.82031 22.7227C9.33594 22.4414 9.91016 22.1953 10.5664 21.9961C10.9766 23.0508 11.4922 23.9414 12.0664 24.6562C10.8477 24.2344 9.74609 23.5664 8.82031 22.7227ZM19.9648 21.9961C20.6211 22.1953 21.207 22.4414 21.7344 22.7344C20.7852 23.5781 19.6836 24.2461 18.4531 24.668C19.0391 23.9531 19.5547 23.0508 19.9648 21.9961Z"
         fill={theme.colors.text}
-      />
-      <motion.rect
-        animate={isOn ? { y: 30 } : { y: 0 }}
-        transition={{ duration: 1 }}
-        x="0"
-        y="0"
-        width="30"
-        height="2"
-        fill={theme.colors.background}
       />
     </svg>
   )
@@ -80,14 +66,6 @@ const EnergyIcon = ({ isOn }) => {
         fill={theme.colors.text}
         animate={isOn ? { rotate: 180 } : { rotate: 0 }}
       />
-      <motion.circle
-        animate={isOn ? { strokeWidth: 4 } : { strokeWidth: 0 }}
-        cx="15"
-        cy="15"
-        r="13"
-        stroke={theme.colors.background}
-        strokeWidth={0}
-      />
     </svg>
   )
 }
@@ -96,8 +74,9 @@ const Header: React.FC<Props> = ({ className, isDark, setIsDark }) => {
   const header = useRef<HTMLDivElement>(null)
   const windowSize = useWindowSize({ debounce: 200 })
   const sanity = useSanity()
-  const [showAbout, setShowAbout] = useState(false)
-  const [showEnergy, setShowEnergy] = useState(false)
+  const [showInfo, setShowInfo] = useState<'energy' | 'about' | undefined>(
+    undefined
+  )
 
   useEffect(() => {
     if (header?.current) {
@@ -110,28 +89,48 @@ const Header: React.FC<Props> = ({ className, isDark, setIsDark }) => {
   }, [header, windowSize])
 
   return (
-    <Container>
-      <div className={className} ref={header}>
+    <div className={className} ref={header}>
+      <Container>
         <div className="inner">
           <h1 className="Logo">
             <Logo />
             <span className="sans">&nbsp;↳Index</span>
           </h1>
-          <div className="menu">
+          <Stack direction="row" space="md">
             <Button
-              modifiers={['small', 'noButton']}
+              modifiers={
+                showInfo === 'about'
+                  ? ['small', 'noButton', 'noButtonActive']
+                  : ['small', 'noButton']
+              }
               className="item"
-              onClick={() => setShowAbout(!showAbout)}
+              onClick={() => {
+                if (showInfo !== 'about') {
+                  setShowInfo('about')
+                } else {
+                  setShowInfo(undefined)
+                }
+              }}
             >
-              <AboutIcon isOn={showAbout} />
+              <AboutIcon isOn={showInfo === 'about'} />
               About
             </Button>
             <Button
-              onClick={() => setShowEnergy(!showEnergy)}
-              modifiers={['small', 'noButton']}
+              onClick={() => {
+                if (showInfo !== 'energy') {
+                  setShowInfo('energy')
+                } else {
+                  setShowInfo(undefined)
+                }
+              }}
+              modifiers={
+                showInfo === 'energy'
+                  ? ['small', 'noButton', 'noButtonActive']
+                  : ['small', 'noButton']
+              }
               className="item"
             >
-              <EnergyIcon isOn={showEnergy} />
+              <EnergyIcon isOn={showInfo === 'energy'} />
               0.12g of CO2
             </Button>
             <Button
@@ -142,36 +141,53 @@ const Header: React.FC<Props> = ({ className, isDark, setIsDark }) => {
               <ThemeIcon isOn={isDark} />
               {isDark ? 'Dark' : 'Light'}
             </Button>
-          </div>
+          </Stack>
         </div>
-        <motion.div
-          initial={{ height: 0 }}
-          animate={showAbout ? { height: 'auto' } : { height: 0 }}
-          transition={{ duration: 1 }}
-          className="about-container"
-          layoutId="container"
-        >
-          <Spacer size="md" />
-          <PageBuilder sections={sanity?.about?.[0]?.pagebuilder?.sections} />
-          <Spacer />
-        </motion.div>
-      </div>
-    </Container>
+        <AnimatePresence>
+          {showInfo !== undefined && (
+            <motion.div
+              initial={{ maxHeight: 0 }}
+              exit={{ maxHeight: 0 }}
+              animate={{ maxHeight: 999 }}
+              transition={{ duration: 1 }}
+              className="energy-container"
+            >
+              <Spacer />
+              {showInfo === 'about' && (
+                <PageBuilder
+                  sections={sanity?.about?.[0]?.pagebuilder?.sections}
+                />
+              )}
+              {showInfo === 'energy' && (
+                <PageBuilder
+                  sections={sanity?.energy?.[0]?.pagebuilder?.sections}
+                />
+              )}
+            </motion.div>
+          )}
+        </AnimatePresence>
+      </Container>
+    </div>
   )
 }
 
 export default styled(Header)(
   ({ theme }) => css`
-    position: sticky;
-    top: 0;
     ${theme.spacing.sm('py')};
     border-bottom: ${theme.border.small};
     background: ${theme.colors.background};
+
+    ${theme.bp.md} {
+      position: sticky;
+      top: 0;
+      z-index: ${theme.elevation[4]};
+    }
 
     .inner {
       display: flex;
       justify-content: space-between;
       align-items: center;
+      flex-wrap: wrap;
     }
 
     .Logo {
@@ -181,17 +197,12 @@ export default styled(Header)(
       }
     }
 
-    .menu {
-      display: flex;
-      justify-content: flex-end;
-      align-items: center;
-    }
-
     .item {
       display: flex;
       align-items: center;
-      &:not(:last-of-type) {
-        ${theme.spacing.md('mr')};
+
+      &:hover {
+        background-color: ${theme.color.rgba(theme.colors.text, 0.1)};
       }
     }
 
@@ -201,7 +212,8 @@ export default styled(Header)(
       margin-right: 0.2em;
     }
 
-    .about-container {
+    .about-container,
+    .energy-container {
       overflow: hidden;
     }
   `

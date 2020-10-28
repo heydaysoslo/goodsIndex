@@ -12,6 +12,8 @@ import Search from 'components/Search'
 import Sort from 'components/Sort'
 import Stack from '@heydays/Stack'
 import Stagger from '@heydays/animation/Stagger'
+import Container from '@heydays/Container'
+import { blocksToText } from 'utils/sanityHelpers'
 
 const Glossary = ({ className, glossary, tags }) => {
   const [tag, setTag] = useState(null)
@@ -19,11 +21,18 @@ const Glossary = ({ className, glossary, tags }) => {
   const [searchTerm, setSearchTerm] = useState(null)
   const [items, setItems] = useState(glossary)
 
+  /**
+   * @note Search, filtering and sorting
+   */
   useEffect(() => {
     let newItems = [...glossary]
     if (searchTerm) {
       newItems = newItems.filter(item => {
-        return item.title.toLowerCase().includes(searchTerm)
+        const content = blocksToText(item.content)
+        return (
+          item.title.toLowerCase().includes(searchTerm) ||
+          content.includes(searchTerm)
+        )
       })
     }
     if (tag) {
@@ -49,47 +58,48 @@ const Glossary = ({ className, glossary, tags }) => {
     setItems(newItems)
   }, [tag, searchTerm, sort])
   return (
-    <div className={className}>
-      <Sticky top="var(--header-height)">
-        <Stack space="xs" className="filter-container">
-          <Filter tags={tags} setTag={setTag} tag={tag} />
-          <Sort
-            sortOptions={['Newest first', 'Alphabetical']}
-            setSort={setSort}
-            sort={sort}
-          />
-          <Search items={glossary} setSearchTerm={setSearchTerm} />
-        </Stack>
-      </Sticky>
-      <Spacer />
-      {/* {tag && <TagCategory tag={tag} />} */}
-      <Stagger as="ul">
-        {items &&
-          items.map(item => (
-            <li key={item._id} className="item">
-              <Stack space="sm" className="content">
-                <H2>{item.title}</H2>
-                {/* <Spacer size="xs" /> */}
-                {/* <p className="small">
-                  {formatDistanceToNow(new Date(item._updatedAt), {
-                    addSuffix: true,
-                    includeSeconds: true
-                  })}
-                </p> */}
-                <Editor blocks={item.content} />
-              </Stack>
-              <Stack space="xs">
-                {item?.tags?.map(tag => (
-                  <Button modifiers="disabled" key={tag._id} modifiers="small">
-                    {tag.title}
-                    <sup>{findIndex(tags, o => o.title === tag.title) + 1}</sup>
-                  </Button>
-                ))}
-              </Stack>
-            </li>
-          ))}
-      </Stagger>
-    </div>
+    <Container>
+      <div className={className}>
+        <Sticky from="md" top="var(--header-height)">
+          <Stack space="sm" spaceEndsStart className="filter-container">
+            <Filter tags={tags} setTag={setTag} tag={tag} />
+            <Sort
+              sortOptions={['Newest first', 'Alphabetical']}
+              setSort={setSort}
+              sort={sort}
+            />
+            <Search items={glossary} setSearchTerm={setSearchTerm} />
+          </Stack>
+        </Sticky>
+        <Spacer />
+        {/* {tag && <TagCategory tag={tag} />} */}
+        <Stagger as="ul">
+          {items &&
+            items.map(item => (
+              <li key={item._id} className="item">
+                <Stack space="sm" className="content">
+                  <H2>{item.title}</H2>
+                  <Editor blocks={item.content} />
+                </Stack>
+                <Stack space="xs">
+                  {item?.tags?.map(tag => (
+                    <Button
+                      className="filter-button"
+                      key={tag._id}
+                      modifiers={['small', 'disabled']}
+                    >
+                      {tag.title}
+                      <sup>
+                        {findIndex(tags, o => o.title === tag.title) + 1}
+                      </sup>
+                    </Button>
+                  ))}
+                </Stack>
+              </li>
+            ))}
+        </Stagger>
+      </div>
+    </Container>
   )
 }
 
@@ -97,17 +107,28 @@ export default styled(Glossary)(
   ({ theme }) => css`
     .filter-container {
       background: ${theme.colors.background};
-      z-index: -1;
     }
     .item {
       list-style: none;
       ${theme.spacing.md('py')};
       border-bottom: ${theme.border.small};
-      display: flex;
-      justify-content: space-between;
+
+      ${theme.bp.md} {
+        display: flex;
+        justify-content: space-between;
+        align-items: baseline;
+      }
 
       .content {
         max-width: 50ch;
+      }
+
+      .filter-button:first-of-type {
+        margin-top: ${theme.spacingUnit.md};
+
+        ${theme.bp.md} {
+          margin-top: 0;
+        }
       }
     }
   `

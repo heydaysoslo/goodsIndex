@@ -13,6 +13,9 @@ const COLOR_MAP = Object.keys(responsiveSpacing).reduce((res, key, i) => {
 
 export type SpacerProps = {
   className?: string
+  /**
+   * @note defaults to md
+   */
   size?: keyof SpacingFuncs
   custom?: string
 }

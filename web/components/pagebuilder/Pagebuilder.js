@@ -24,7 +24,6 @@ const StyledPageBuilder = styled.div(
 )
 
 const PageBuilder = ({ sections, ...props }) => {
-  console.log('PageBuilder -> props', props)
   return (
     <StyledPageBuilder>
       <Stagger>

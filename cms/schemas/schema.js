@@ -17,6 +17,7 @@ import frontpage from './documents/frontpage'
 import glossary from './documents/glossary'
 import tag from './documents/tag'
 import about from './documents/about'
+import energy from './documents/energy'
 
 // Object types
 import link from './objects/link'
@@ -107,6 +108,7 @@ export default createSchema({
     frontpage,
     glossary,
     tag,
-    about
+    about,
+    energy
   ])
 })
