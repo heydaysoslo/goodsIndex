@@ -123,6 +123,10 @@ export default styled(Glossary)(
         max-width: 50ch;
       }
 
+      .filter-button {
+        align-self: flex-start;
+      }
+
       .filter-button:first-of-type {
         margin-top: ${theme.spacingUnit.md};
 
