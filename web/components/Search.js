@@ -49,10 +49,6 @@ export default styled(Search)(
     border: ${theme.border.small};
     ${theme.spacing.xs(['py', 'pl'])};
 
-    &:hover {
-      border-style: dashed;
-    }
-
     .icon {
       width: 0.6em;
       height: 0.6em;
