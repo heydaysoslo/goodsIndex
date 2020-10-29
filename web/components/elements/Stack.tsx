@@ -71,7 +71,7 @@ const Stack: React.FC<Props> = ({
         ? children.flat(1).map((child, i) => (
             <Fragment key={`${ID}-${i}`}>
               {child}
-              {i !== children.length - 1 && <Spacer size={space} />}
+              {i !== children.flat(1).length - 1 && <Spacer size={space} />}
             </Fragment>
           ))
         : children}
