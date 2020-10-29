@@ -1,7 +1,6 @@
 import React, { Fragment } from 'react'
 import styled, { css } from 'styled-components'
 import { nanoid } from 'nanoid'
-import useWhyDidYouUpdate from '@heydays/useWhyDidYouUpdate'
 
 const ID = nanoid()
 
