@@ -210,6 +210,11 @@ export default styled(Header)(
       width: 1em;
       height: 1em;
       margin-right: 0.2em;
+      display: none;
+
+      ${theme.bp.md} {
+        display: block;
+      }
     }
 
     .about-container,
