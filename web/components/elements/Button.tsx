@@ -39,6 +39,10 @@ export default styled(Button)(
     color: ${theme.colors.text};
     transition: 0.15s ease background-color, color;
     cursor: pointer;
+    padding-left: 0.5em;
+    padding-right: 0.5em;
+    padding-top: 0.2em;
+    padding-bottom: 0.2em;
 
     &:hover {
       border-style: dashed;
@@ -48,10 +52,6 @@ export default styled(Button)(
       'small',
       css`
         ${theme.fonts.small()};
-        padding-left: 0.5em;
-        padding-right: 0.5em;
-        padding-top: 0.2em;
-        padding-bottom: 0.2em;
       `
     )}
 
