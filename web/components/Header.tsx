@@ -199,6 +199,11 @@ export default styled(Header)(
 
     .menu {
       margin-left: -0.5em;
+
+      ${theme.bp.md} {
+        margin-left: 0;
+        transform: translateX(0.5em);
+      }
     }
 
     .item {
