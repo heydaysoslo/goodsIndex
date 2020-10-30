@@ -5,31 +5,17 @@ import Stack from '@heydays/Stack'
 import { AnimateSharedLayout, motion } from 'framer-motion'
 
 const Filter = ({ className, tags, setTag, tag: currentTag }) => {
-  const [isAnimationDone, setIsAnimationDone] = useState(true)
   return (
     <div className={className}>
       <AnimateSharedLayout type="crossfade">
         <Stack direction="row" space="sm">
           <Button
             className="filter-button"
-            onClick={() => {
-              setTag(null)
-              setIsAnimationDone(false)
-            }}
-            modifiers={[
-              currentTag === null && isAnimationDone && 'active',
-              'small'
-            ]}
+            onClick={() => setTag(null)}
+            modifiers={[currentTag === null && 'active', 'small']}
           >
             {currentTag === null && (
-              <motion.div
-                onViewportBoxUpdate={() => {
-                  setIsAnimationDone(true)
-                }}
-                animate
-                layoutId="backdrop"
-                className="backdrop"
-              />
+              <motion.div animate layoutId="backdrop" className="backdrop" />
             )}
             <span className="text">
               All
@@ -41,24 +27,18 @@ const Filter = ({ className, tags, setTag, tag: currentTag }) => {
               <Button
                 className="filter-button"
                 key={tag._id}
-                onClick={() => {
+                onClick={() =>
                   tag === currentTag ? setTag(null) : setTag(tag)
-                  setIsAnimationDone(false)
-                }}
+                }
                 modifiers={[
                   tag.title.toLowerCase() ===
-                    currentTag?.title?.toLowerCase() &&
-                    isAnimationDone &&
-                    'active',
+                    currentTag?.title?.toLowerCase() && 'active',
                   'small'
                 ]}
               >
                 {tag.title.toLowerCase() ===
                   currentTag?.title?.toLowerCase() && (
                   <motion.div
-                    onViewportBoxUpdate={() => {
-                      setIsAnimationDone(true)
-                    }}
                     animate
                     layoutId="backdrop"
                     className="backdrop"
