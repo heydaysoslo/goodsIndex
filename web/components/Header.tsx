@@ -96,7 +96,7 @@ const Header: React.FC<Props> = ({ className, isDark, setIsDark }) => {
             <Logo />
             <span className="sans">&nbsp;↳Index</span>
           </h1>
-          <Stack direction="row" space="md">
+          <Stack className="menu" direction="row" space="sm">
             <Button
               modifiers={
                 showInfo === 'about'
@@ -131,7 +131,7 @@ const Header: React.FC<Props> = ({ className, isDark, setIsDark }) => {
               className="item"
             >
               <EnergyIcon isOn={showInfo === 'energy'} />
-              0.12g of CO2
+              0.12g
             </Button>
             <Button
               modifiers={['small', 'noButton']}
@@ -197,6 +197,10 @@ export default styled(Header)(
       }
     }
 
+    .menu {
+      margin-left: -0.5em;
+    }
+
     .item {
       display: flex;
       align-items: center;
@@ -210,11 +214,6 @@ export default styled(Header)(
       width: 1em;
       height: 1em;
       margin-right: 0.2em;
-      display: none;
-
-      ${theme.bp.md} {
-        display: block;
-      }
     }
 
     .about-container,
