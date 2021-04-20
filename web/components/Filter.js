@@ -66,10 +66,10 @@ export default styled(Filter)(
 
     .backdrop {
       position: absolute;
-      top: -1px;
-      left: -1px;
-      width: calc(100% + 2px);
-      height: calc(100% + 2px);
+      top: -2px;
+      left: -2px;
+      width: calc(100% + 6px);
+      height: calc(100% + 6px);
       background: ${theme.colors.text};
       border-radius: ${theme.radius.button};
     }

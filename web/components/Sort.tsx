@@ -44,10 +44,10 @@ export default styled(Sort)(
     }
     .backdrop {
       position: absolute;
-      top: -1px;
-      left: -1px;
-      width: calc(100% + 2px);
-      height: calc(100% + 2px);
+      top: -2px;
+      left: -2px;
+      width: calc(100% + 4px);
+      height: calc(100% + 4px);
       background: ${theme.colors.text};
       border-radius: ${theme.radius.button};
     }
