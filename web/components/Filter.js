@@ -68,8 +68,8 @@ export default styled(Filter)(
       position: absolute;
       top: -2px;
       left: -2px;
-      width: calc(100% + 6px);
-      height: calc(100% + 6px);
+      width: calc(100% + 4px);
+      height: calc(100% + 4px);
       background: ${theme.colors.text};
       border-radius: ${theme.radius.button};
     }
