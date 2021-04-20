@@ -1,6 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react'
 import styled, { css, useTheme } from 'styled-components'
 import { AnimatePresence, AnimateSharedLayout, motion } from 'framer-motion'
+import Link from 'next/link'
 
 import Container from './elements/Container'
 import Logo from './Logo'
@@ -93,8 +94,11 @@ const Header: React.FC<Props> = ({ className, isDark, setIsDark }) => {
       <Container>
         <div className="inner">
           <h1 className="Logo">
-            <Logo />
-            <span className="sans">&nbsp;↳Index</span>
+            <Link href="/">
+              <a>
+                <Logo />
+              </a>
+            </Link>
           </h1>
           <Stack className="menu" direction="row" space="sm">
             <Button
@@ -191,7 +195,6 @@ export default styled(Header)(
     }
 
     .Logo {
-      display: flex;
       svg {
         height: 1em;
       }
