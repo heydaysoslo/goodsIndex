@@ -97,7 +97,7 @@ const Header: React.FC<Props> = ({ className, isDark, setIsDark }) => {
 
   useEffect(() => {
     animate(0, 0.13, {
-      duration: 3,
+      duration: 2,
       onUpdate(value) {
         setAmount(value.toFixed(2))
       }
