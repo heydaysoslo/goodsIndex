@@ -56,11 +56,7 @@ const PageBuilderResolver = ({ section, ...props }) => {
 
   return Component ? (
     <Component className="PageBuilder__item" section={section} {...props} />
-  ) : (
-    <p key={section._key} style={{ background: 'red' }}>
-      Component {section._type} not found
-    </p>
-  )
+  ) : null
 }
 
 export default PageBuilder
