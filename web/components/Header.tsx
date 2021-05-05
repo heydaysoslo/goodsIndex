@@ -1,6 +1,11 @@
 import React, { useEffect, useRef, useState } from 'react'
 import styled, { css, useTheme } from 'styled-components'
-import { AnimatePresence, AnimateSharedLayout, motion } from 'framer-motion'
+import {
+  AnimatePresence,
+  AnimateSharedLayout,
+  motion,
+  animate
+} from 'framer-motion'
 import Link from 'next/link'
 
 import Container from './elements/Container'
@@ -78,6 +83,7 @@ const Header: React.FC<Props> = ({ className, isDark, setIsDark }) => {
   const [showInfo, setShowInfo] = useState<'energy' | 'about' | undefined>(
     undefined
   )
+  const [amount, setAmount] = useState('')
 
   useEffect(() => {
     if (header?.current) {
@@ -88,6 +94,15 @@ const Header: React.FC<Props> = ({ className, isDark, setIsDark }) => {
       )
     }
   }, [header, windowSize])
+
+  useEffect(() => {
+    animate(0, 0.13, {
+      duration: 3,
+      onUpdate(value) {
+        setAmount(value.toFixed(2))
+      }
+    })
+  }, [])
 
   return (
     <div className={className} ref={header}>
@@ -135,7 +150,7 @@ const Header: React.FC<Props> = ({ className, isDark, setIsDark }) => {
               className="item"
             >
               <EnergyIcon isOn={showInfo === 'energy'} />
-              0.12g
+              {amount}g
             </Button>
             <Button
               modifiers={['small', 'noButton']}

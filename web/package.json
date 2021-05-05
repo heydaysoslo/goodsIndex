@@ -15,7 +15,7 @@
     "color": "^3.1.2",
     "date-fns": "^2.16.1",
     "flickity": "^2.2.1",
-    "framer-motion": "^2.4.2",
+    "framer-motion": "^4.1.11",
     "lazysizes": "^5.2.2",
     "nanoid": "^3.1.12",
     "next": "9.5.2",
