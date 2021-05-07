@@ -1,5 +1,4 @@
 import { NextSeo } from 'next-seo'
-import { getCanonical } from 'routes'
 import { cldGetImage } from 'utils/cloudinary'
 import { toPlainText } from 'utils/helpers'
 
