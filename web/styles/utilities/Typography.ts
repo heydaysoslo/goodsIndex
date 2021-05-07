@@ -36,6 +36,8 @@ export const globalTypeStyle = ({ theme }) => css`
     vertical-align: super;
     font-size: 0.6em;
     padding-left: 0.15em;
+    font-weight: 500;
+    -webkit-text-stroke: 0.03em currentColor;
   }
 
   *:focus {
@@ -47,8 +49,10 @@ export const globalTypeStyle = ({ theme }) => css`
     cursor: pointer;
     position: relative;
     text-decoration: underline;
+    color: currentColor;
     &:hover {
       text-decoration: none;
+      color: currentColor;
     }
   }
 

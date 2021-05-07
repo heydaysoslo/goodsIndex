@@ -4,7 +4,8 @@ import Button from '@heydays/Button'
 import Stack from '@heydays/Stack'
 import { AnimateSharedLayout, motion } from 'framer-motion'
 
-const Filter = ({ className, tags, setTag, tag: currentTag }) => {
+const Filter = ({ className, tags, setTag, tag: currentTag, hitsInTags }) => {
+  console.log('📄 Filter.js:8 -> hitsInTags', hitsInTags)
   return (
     <div className={className}>
       <AnimateSharedLayout type="crossfade">
@@ -19,7 +20,7 @@ const Filter = ({ className, tags, setTag, tag: currentTag }) => {
             )}
             <span className="text">
               All
-              <sup>0</sup>
+              <sup>{hitsInTags.all}</sup>
             </span>
           </Button>
           {tags &&
@@ -46,7 +47,7 @@ const Filter = ({ className, tags, setTag, tag: currentTag }) => {
                 )}
                 <span className="text">
                   {tag.title}
-                  <sup>{i + 1}</sup>
+                  <sup>{hitsInTags[tag.title.toLowerCase()]}</sup>
                 </span>
               </Button>
             ))}

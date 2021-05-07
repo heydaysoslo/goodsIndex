@@ -20,6 +20,7 @@ const Glossary = ({ className, glossary, tags }) => {
   const [sort, setSort] = useState('Newest first')
   const [searchTerm, setSearchTerm] = useState(null)
   const [items, setItems] = useState(glossary)
+  const [hitsInTags, setHitsInTags] = useState({})
 
   /**
    * @note Search, filtering and sorting
@@ -55,6 +56,23 @@ const Glossary = ({ className, glossary, tags }) => {
     } else if (sort === 'OldestFirst') {
       newItems = newItems.sort((a, b) => (b.title < a.title ? -1 : 1))
     }
+    setHitsInTags(
+      newItems.reduce(
+        (res, item) => {
+          if (Array.isArray(item.tags)) {
+            item.tags.forEach(tag => {
+              if (res[tag.title.toLowerCase()]) {
+                res[tag.title.toLowerCase()] += 1
+              } else {
+                res[tag.title.toLowerCase()] = 1
+              }
+            })
+          }
+          return res
+        },
+        { all: newItems.length }
+      )
+    )
     setItems(newItems)
   }, [tag, searchTerm, sort])
   return (
@@ -62,7 +80,12 @@ const Glossary = ({ className, glossary, tags }) => {
       <div className={className}>
         <Sticky from="md" top="var(--header-height)">
           <Stack space="sm" spaceEndsStart className="filter-container">
-            <Filter tags={tags} setTag={setTag} tag={tag} />
+            <Filter
+              tags={tags}
+              setTag={setTag}
+              tag={tag}
+              hitsInTags={hitsInTags}
+            />
             <Sort
               sortOptions={['Newest first', 'Alphabetical']}
               setSort={setSort}
@@ -77,11 +100,9 @@ const Glossary = ({ className, glossary, tags }) => {
           {items &&
             items.map(item => (
               <li key={item._id} className="item">
-                <Stack space="sm" className="content">
-                  <H2>{item.title}</H2>
-                  <Editor blocks={item.content} />
-                </Stack>
-                <Stack space="xs">
+                <header className="content-header">
+                  <H2 className="title">{item.title}</H2>
+
                   {item?.tags?.map(tag => (
                     <Button
                       className="filter-button"
@@ -89,12 +110,15 @@ const Glossary = ({ className, glossary, tags }) => {
                       modifiers={['small', 'disabled']}
                     >
                       {tag.title}
-                      <sup>
+                      {/* <sup>
                         {findIndex(tags, o => o.title === tag.title) + 1}
-                      </sup>
+                      </sup> */}
                     </Button>
                   ))}
-                </Stack>
+                </header>
+                <div className="content">
+                  <Editor blocks={item.content} />
+                </div>
               </li>
             ))}
         </Stagger>
@@ -106,29 +130,38 @@ const Glossary = ({ className, glossary, tags }) => {
 export default styled(Glossary)(
   ({ theme }) => css`
     .filter-container {
+      position: relative;
       background: ${theme.colors.background};
+      z-index: 999;
     }
     .item {
       list-style: none;
       ${theme.spacing.md('py')};
       border-bottom: ${theme.border.small};
-
-      ${theme.bp.md} {
-        display: flex;
-        justify-content: space-between;
-        align-items: baseline;
-      }
+      width: 100%;
 
       .content {
-        max-width: 50ch;
+        max-width: 100%;
+
+        ${theme.bp.lg} {
+          max-width: 1300px;
+        }
       }
 
-      .filter-button {
-        align-self: flex-start;
+      .content-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        flex-wrap: nowrap;
+        ${theme.spacing.md('mb')};
+      }
+
+      .title {
+        flex-grow: 1;
       }
 
       .filter-button:first-of-type {
-        margin-top: ${theme.spacingUnit.md};
+        margin-top: ${theme.responsiveSpacing.md.xs};
 
         ${theme.bp.md} {
           margin-top: 0;

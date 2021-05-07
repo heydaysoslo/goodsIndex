@@ -4,6 +4,31 @@ import { globalTypeStyle } from './Typography'
 
 export const GlobalStyle = createGlobalStyle(
   ({ theme }) => css`
+  @font-face {
+  font-family: "SuisseIntl";
+  src: url("fonts/SuisseIntl-Regular-WebM.eot?#iefix");
+  src: url("fonts/SuisseIntl-Regular-WebM.eot?#iefix") format("embedded-opentype"),
+    url("fonts/SuisseIntl-Regular-WebM.woff2") format("woff2"),
+    url("fonts/SuisseIntl-Regular-WebM.woff") format("woff"),
+    url("fonts/SuisseIntl-Regular-WebM.ttf") format("truetype"),
+    url("fonts/SuisseIntl-Regular-WebM.svg") format("svg");
+  font-weight: normal;
+  font-style: normal;
+  /* font-display: swap; */
+}
+
+@font-face {
+  font-family: "Suisse Works";
+  src: url("fonts/SuisseWorks-Regular-WebS.eot?#iefix");
+  src: url("fonts/SuisseWorks-Regular-WebS.eot?#iefix") format("embedded-opentype"),
+    url("fonts/SuisseWorks-Regular-WebS.woff2") format("woff2"),
+    url("fonts/SuisseWorks-Regular-WebS.woff") format("woff"),
+    url("fonts/SuisseWorks-Regular-WebS.ttf") format("truetype"),
+    url("fonts/SuisseWorks-Regular-WebS.svg") format("svg");
+  font-weight: normal;
+  font-style: normal;
+  /* font-display: swap; */
+}
   :root {
     --header-height: 0;
   }
@@ -18,6 +43,8 @@ export const GlobalStyle = createGlobalStyle(
       -moz-osx-font-smoothing: grayscale;
       color: ${theme.colors.text};
       ${theme.fonts.body()}
+      max-width: 100%;
+      overflow-x: hidden;
     }
 
     ::selection {

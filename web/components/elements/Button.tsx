@@ -34,6 +34,7 @@ export default styled(Button)(
     appearance: none;
     background: none;
     display: inline-block;
+    /* ${theme.fonts.body()}; */
     border: ${theme.border.small};
     border-radius: ${theme.radius.button};
     color: ${theme.colors.text};
