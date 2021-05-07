@@ -78,8 +78,8 @@ const Glossary = ({ className, glossary, tags }) => {
   return (
     <Container>
       <div className={className}>
-        <Sticky from="md" top="var(--header-height)">
-          <Stack space="sm" spaceEndsStart className="filter-container">
+        <Sticky className="navigation" from="md" top="var(--header-height)">
+          <Stack space="sm" spaceEndsStart>
             <Filter
               tags={tags}
               setTag={setTag}
@@ -129,10 +129,10 @@ const Glossary = ({ className, glossary, tags }) => {
 
 export default styled(Glossary)(
   ({ theme }) => css`
-    .filter-container {
-      position: relative;
+    .navigation {
       background: ${theme.colors.background};
       z-index: 999;
+      ${theme.spacing.sm('pb')};
     }
     .item {
       list-style: none;

@@ -32,12 +32,13 @@ export const globalTypeStyle = ({ theme }) => css`
   }
 
   sup {
+    font-family: ${theme.fontFamily.sans};
     position: relative;
     vertical-align: super;
     font-size: 0.6em;
     padding-left: 0.15em;
     font-weight: 500;
-    -webkit-text-stroke: 0.03em currentColor;
+    -webkit-text-stroke: 0.02em currentColor;
   }
 
   *:focus {
@@ -50,6 +51,9 @@ export const globalTypeStyle = ({ theme }) => css`
     position: relative;
     text-decoration: underline;
     color: currentColor;
+    sup {
+      text-decoration: none;
+    }
     &:hover {
       text-decoration: none;
       color: currentColor;

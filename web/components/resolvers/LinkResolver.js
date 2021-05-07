@@ -50,15 +50,18 @@ export const ExternalLink = ({ link, className, children, ...props }) => {
   }
 
   return (
-    <a
-      title={title}
-      href={href}
-      className={className}
-      {...targetProps}
-      {...props}
-    >
-      {linkText || children || href}
-    </a>
+    <>
+      <a
+        title={title}
+        href={href}
+        className={className}
+        {...targetProps}
+        {...props}
+      >
+        {linkText || children || href}
+      </a>
+      <sup>&#8599;</sup> {/* ne arrow  */}
+    </>
   )
 }
 
