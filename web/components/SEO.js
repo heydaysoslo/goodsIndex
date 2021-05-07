@@ -36,7 +36,7 @@ const truncateString = (str, maxLength, ellipsis = '…') => {
 }
 
 const SEO = ({ page }) => {
-  const canonical = getCanonical(page)
+  const canonical = 'https://goods-index.vercel.app'
   const title = page?.seo?.title || page?.title || null
 
   const description =
