@@ -72,3 +72,24 @@ export const getImageSrc = ({ public_id, format }, aspectRatio) => {
     noscript: `https://res.cloudinary.com/${CLOUDINARY_CLOUD_NAME}/image/upload/${transformations},w_1280/${public_id}`
   }
 }
+
+export const cldGetImage = (node, { width, height }) => {
+  if (!node?.public_id) {
+    return null
+  }
+  const { public_id } = node
+  const transformations = ['c_fill']
+  if (width) {
+    transformations.push(`w_${width}`)
+  }
+  if (height) {
+    transformations.push(`h_${height}`)
+  }
+  return {
+    src: `https://res.cloudinary.com/${CLOUDINARY_CLOUD_NAME}/image/upload/${transformations.join(
+      ','
+    )}/${public_id}.jpg`,
+    width,
+    height
+  }
+}
