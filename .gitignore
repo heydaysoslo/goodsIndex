@@ -9,7 +9,6 @@ node_modules/
 
 # Gatsby
 .cache
-/web/public
 
 # Env files
 .env
