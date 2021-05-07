@@ -22,10 +22,14 @@ const Search = ({ className, setSearchTerm }) => {
           cx="11"
           cy="11"
           r="10"
-          stroke={theme.colors.primary}
+          stroke={theme.color.rgba(theme.colors.text, 0.8)}
           strokeWidth="2"
         />
-        <path d="M18 18L24 24" stroke={theme.colors.primary} strokeWidth="2" />
+        <path
+          d="M18 18L24 24"
+          stroke={theme.color.rgba(theme.colors.text, 0.8)}
+          strokeWidth="2"
+        />
       </svg>
 
       <input
@@ -50,9 +54,14 @@ export default styled(Search)(
     ${theme.spacing.xs(['py', 'pl'])};
 
     .icon {
-      width: 0.6em;
-      height: 0.6em;
-      ${theme.spacing.xs('mr')};
+      width: 1em;
+      height: 1em;
+      margin-right: ${theme.spacingUnit.xs};
+
+      ${theme.bp.sm} {
+        width: 0.7em;
+        height: 0.7em;
+      }
     }
 
     .searchBox {

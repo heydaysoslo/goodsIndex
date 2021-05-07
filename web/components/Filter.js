@@ -5,11 +5,10 @@ import Stack from '@heydays/Stack'
 import { AnimateSharedLayout, motion } from 'framer-motion'
 
 const Filter = ({ className, tags, setTag, tag: currentTag, hitsInTags }) => {
-  console.log('📄 Filter.js:8 -> hitsInTags', hitsInTags)
   return (
     <div className={className}>
       <AnimateSharedLayout type="crossfade">
-        <Stack direction="row" space="sm">
+        <Stack direction="row" space="xs">
           <Button
             className="filter-button"
             onClick={() => setTag(null)}
@@ -63,7 +62,13 @@ export default styled(Filter)(
     align-items: baseline;
     width: 100%;
     max-width: 100%;
-    overflow-x: auto;
+    overflow-x: scroll;
+    /* Hide scrollbar */
+    -ms-overflow-style: none; /* IE and Edge */
+    scrollbar-width: none; /* Firefox */
+    &::-webkit-scrollbar {
+      display: none;
+    }
 
     .backdrop {
       position: absolute;

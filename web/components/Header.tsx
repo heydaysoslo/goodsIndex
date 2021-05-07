@@ -115,7 +115,7 @@ const Header: React.FC<Props> = ({ className, isDark, setIsDark }) => {
               </a>
             </Link>
           </h1>
-          <Stack className="menu" direction="row" space="sm">
+          <Stack className="menu" direction="row" space="xs">
             <Button
               modifiers={
                 showInfo === 'about'
@@ -147,7 +147,7 @@ const Header: React.FC<Props> = ({ className, isDark, setIsDark }) => {
                   ? ['small', 'noButton', 'noButtonActive']
                   : ['small', 'noButton']
               }
-              className="item"
+              className="item energy"
             >
               <EnergyIcon isOn={showInfo === 'energy'} />
               {amount}g
@@ -217,8 +217,10 @@ export default styled(Header)(
 
     .menu {
       margin-left: -0.5em;
+      margin-top: 0.5rem;
 
       ${theme.bp.md} {
+        margin-top: 0;
         margin-left: 0;
         transform: translateX(0.5em);
       }
@@ -227,6 +229,10 @@ export default styled(Header)(
     .item {
       display: flex;
       align-items: center;
+
+      &.energy {
+        min-width: 118px;
+      }
 
       &:hover {
         background-color: ${theme.color.rgba(theme.colors.text, 0.1)};

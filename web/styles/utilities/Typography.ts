@@ -23,8 +23,8 @@ export const globalTypeStyle = ({ theme }) => css`
   }
 
   ::selection {
-    background: ${theme.colors.primary};
-    color: white;
+    background: ${theme.colors.text};
+    color: ${theme.colors.background};
   }
 
   strong {

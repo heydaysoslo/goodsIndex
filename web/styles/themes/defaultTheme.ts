@@ -44,7 +44,8 @@ export const spacingUnit = {
 
 export const responsiveSpacing = {
   xs: {
-    xs: 'xs'
+    xs: 'xs',
+    sm: 'sm'
   },
   sm: {
     xs: 'sm'
@@ -83,7 +84,8 @@ export const fontFamily = {
 
 export const responsiveFonts = {
   small: {
-    xs: '20px/24px',
+    // xs: '20px/24px',
+    xs: '24px/32px',
     md: '24px/32px'
   },
   body: {

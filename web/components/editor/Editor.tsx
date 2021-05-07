@@ -100,6 +100,15 @@ export const serializers = {
             props?.mark?.reference?.title}
         </LinkResolver>
       )
+    },
+    internalLink(props) {
+      return (
+        <LinkResolver className="" link={props.mark}>
+          {props.children ||
+            props?.mark?.title ||
+            props?.mark?.reference?.title}
+        </LinkResolver>
+      )
     }
   }
 }
@@ -131,6 +140,10 @@ export default styled(Editor)(
     }
     p {
       ${theme.spacing.xs('mt')};
+    }
+
+    a {
+      word-break: break-word;
     }
 
     .Editor__blocks > *:first-child {

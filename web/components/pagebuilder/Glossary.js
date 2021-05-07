@@ -22,6 +22,26 @@ const Glossary = ({ className, glossary, tags }) => {
   const [items, setItems] = useState(glossary)
   const [hitsInTags, setHitsInTags] = useState({})
 
+  useEffect(() => {
+    setHitsInTags(
+      glossary.reduce(
+        (res, item) => {
+          if (Array.isArray(item.tags)) {
+            item.tags.forEach(tag => {
+              if (res[tag.title.toLowerCase()]) {
+                res[tag.title.toLowerCase()] += 1
+              } else {
+                res[tag.title.toLowerCase()] = 1
+              }
+            })
+          }
+          return res
+        },
+        { all: glossary.length }
+      )
+    )
+  }, [])
+
   /**
    * @note Search, filtering and sorting
    */
@@ -56,23 +76,6 @@ const Glossary = ({ className, glossary, tags }) => {
     } else if (sort === 'OldestFirst') {
       newItems = newItems.sort((a, b) => (b.title < a.title ? -1 : 1))
     }
-    setHitsInTags(
-      newItems.reduce(
-        (res, item) => {
-          if (Array.isArray(item.tags)) {
-            item.tags.forEach(tag => {
-              if (res[tag.title.toLowerCase()]) {
-                res[tag.title.toLowerCase()] += 1
-              } else {
-                res[tag.title.toLowerCase()] = 1
-              }
-            })
-          }
-          return res
-        },
-        { all: newItems.length }
-      )
-    )
     setItems(newItems)
   }, [tag, searchTerm, sort])
   return (
@@ -151,9 +154,12 @@ export default styled(Glossary)(
       .content-header {
         display: flex;
         justify-content: space-between;
-        align-items: center;
+        align-items: baseline;
         flex-wrap: nowrap;
         ${theme.spacing.md('mb')};
+        ${theme.bp.sm} {
+          align-items: center;
+        }
       }
 
       .title {
@@ -161,7 +167,7 @@ export default styled(Glossary)(
       }
 
       .filter-button:first-of-type {
-        margin-top: ${theme.responsiveSpacing.md.xs};
+        margin-top: ${theme.spacingUnit.md};
 
         ${theme.bp.md} {
           margin-top: 0;

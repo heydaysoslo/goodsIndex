@@ -15,7 +15,7 @@ const Sort = ({ className, sortOptions, sort: currentSort, setSort }) => {
   return (
     <div className={className}>
       <AnimateSharedLayout type="crossfade">
-        <Stack space="sm" direction="row">
+        <Stack space="xs" direction="row">
           {sortOptions.map((sort: string) => (
             <Button
               className="sort-button"

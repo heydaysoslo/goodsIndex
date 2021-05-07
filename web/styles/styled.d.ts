@@ -28,7 +28,8 @@ import {
   trans,
   borderWidth,
   radius,
-  elevation
+  elevation,
+  responsiveSpacing
 } from './themes/defaultTheme'
 import { bp, BreakpointSizes } from './utilities/breakpointsFactory'
 import color from './utilities/Colors'
@@ -45,11 +46,7 @@ declare module 'styled-components' {
       [size in spacing]: string
     }
     spacing: SpacingFuncsWithFunc
-    responsiveSpacing: {
-      [size in SpacingSizes]: {
-        [bp in BreakpointSizes]?: spacing | string
-      }
-    }
+    responsiveSpacing: typeof responsiveSpacing
     responsiveFonts?: ResponsiveFonts
     grid?: {
       columns: number
