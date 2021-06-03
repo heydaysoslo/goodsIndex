@@ -223,7 +223,7 @@ export default styled(Header)(
     }
 
     .menu {
-      margin-left: -0.5em;
+      /* margin-left: -0.5em; */
       margin-top: 0.5rem;
 
       ${theme.bp.md} {
