@@ -132,16 +132,20 @@ const Glossary = ({ className, glossary, tags }) => {
 
 export default styled(Glossary)(
   ({ theme }) => css`
+    ${theme.spacing.section('pb')};
     .navigation {
       background: ${theme.colors.background};
       z-index: 999;
       ${theme.spacing.sm('pb')};
     }
 
+    .glossaries > div:not(:last-of-type) {
+      border-bottom: ${theme.border.small};
+    }
+
     .item {
       list-style: none;
       ${theme.spacing.md('py')};
-      border-bottom: ${theme.border.small};
       width: 100%;
 
       .content {
