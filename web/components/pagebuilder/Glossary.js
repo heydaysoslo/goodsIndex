@@ -90,7 +90,7 @@ const Glossary = ({ className, glossary, tags }) => {
               hitsInTags={hitsInTags}
             />
             <Sort
-              sortOptions={['Newest first', 'Alphabetical']}
+              sortOptions={['Newest', 'Alphabetical']}
               setSort={setSort}
               sort={sort}
             />
@@ -99,7 +99,7 @@ const Glossary = ({ className, glossary, tags }) => {
         </Sticky>
         <Spacer />
         {/* {tag && <TagCategory tag={tag} />} */}
-        <Stagger as="ul">
+        <Stagger as="ul" className="glossaries">
           {items &&
             items.map(item => (
               <li key={item._id} className="item">
@@ -137,6 +137,7 @@ export default styled(Glossary)(
       z-index: 999;
       ${theme.spacing.sm('pb')};
     }
+
     .item {
       list-style: none;
       ${theme.spacing.md('py')};
@@ -146,7 +147,8 @@ export default styled(Glossary)(
       .content {
         max-width: 100%;
 
-        ${theme.bp.lg} {
+        ${theme.bp.md} {
+          width: 80%;
           max-width: 1300px;
         }
       }

@@ -21,7 +21,7 @@ const Sort = ({ className, sortOptions, sort: currentSort, setSort }) => {
               className="sort-button"
               key={`${sort}`}
               onClick={() => {
-                currentSort === sort ? setSort('Newest first') : setSort(sort)
+                currentSort === sort ? setSort('Newest') : setSort(sort)
               }}
               modifiers={sort === currentSort ? ['small', 'active'] : ['small']}
             >
