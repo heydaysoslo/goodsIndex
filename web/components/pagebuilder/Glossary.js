@@ -17,7 +17,7 @@ import { blocksToText } from 'utils/sanityHelpers'
 
 const Glossary = ({ className, glossary, tags }) => {
   const [tag, setTag] = useState(null)
-  const [sort, setSort] = useState('Newest first')
+  const [sort, setSort] = useState('Newest')
   const [searchTerm, setSearchTerm] = useState(null)
   const [items, setItems] = useState(glossary)
   const [hitsInTags, setHitsInTags] = useState({})
