@@ -35,7 +35,7 @@ export const spacingUnit = {
   sm: remSize(12),
   md: remSize(12 * 2),
   lg: remSize(12 * 3),
-  section: remSize(12 * 5),
+  section: remSize(12 * 10),
   gutter: remSize(40),
   gap: remSize(20),
   container: remSize(1440),
