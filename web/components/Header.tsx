@@ -1,11 +1,6 @@
-import React, { useEffect, useRef, useState } from 'react'
+import React, { useEffect, useLayoutEffect, useRef, useState } from 'react'
 import styled, { css, useTheme } from 'styled-components'
-import {
-  AnimatePresence,
-  AnimateSharedLayout,
-  motion,
-  animate
-} from 'framer-motion'
+import { AnimatePresence, motion, animate } from 'framer-motion'
 import Link from 'next/link'
 
 import Container from './elements/Container'
@@ -16,6 +11,7 @@ import useSanity from '@heydays/useSanity'
 import PageBuilder from '@heydays/Pagebuilder'
 import Spacer from '@heydays/Spacer'
 import Stack from '@heydays/Stack'
+import { setOverflowHidden } from 'utils/helpers'
 
 type Props = {
   className?: string
@@ -95,6 +91,13 @@ const Header: React.FC<Props> = ({ className, isDark, setIsDark }) => {
     }
   }, [header, windowSize])
 
+  useLayoutEffect(() => {
+    document.documentElement.style.setProperty(
+      '--window-height',
+      `${window.innerHeight}px`
+    )
+  }, [])
+
   useEffect(() => {
     animate(0, 0.13, {
       duration: 2,
@@ -126,20 +129,24 @@ const Header: React.FC<Props> = ({ className, isDark, setIsDark }) => {
               onClick={() => {
                 if (showInfo !== 'about') {
                   setShowInfo('about')
+                  setOverflowHidden(true)
                 } else {
                   setShowInfo(undefined)
+                  setOverflowHidden(false)
                 }
               }}
             >
               <AboutIcon isOn={showInfo === 'about'} />
-              About
+              {showInfo === 'about' ? 'Close' : 'About'}
             </Button>
             <Button
               onClick={() => {
                 if (showInfo !== 'energy') {
                   setShowInfo('energy')
+                  setOverflowHidden(true)
                 } else {
                   setShowInfo(undefined)
+                  setOverflowHidden(false)
                 }
               }}
               modifiers={
@@ -150,7 +157,7 @@ const Header: React.FC<Props> = ({ className, isDark, setIsDark }) => {
               className="item energy"
             >
               <EnergyIcon isOn={showInfo === 'energy'} />
-              {amount}g
+              {showInfo === 'energy' ? 'Close' : `${amount}g`}
             </Button>
             <Button
               modifiers={['small', 'noButton']}
@@ -248,6 +255,13 @@ export default styled(Header)(
     .about-container,
     .energy-container {
       overflow: hidden;
+      height: calc(var(--window-height) - 90px);
+      overflow: auto;
+
+      ${theme.bp.md} {
+        height: var(--window-height);
+        width: 70%;
+      }
     }
   `
 )
