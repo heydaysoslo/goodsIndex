@@ -30,6 +30,7 @@ export const P = styled.p<PModifiers>(
       'lead',
       css`
         ${theme.fonts.lead()};
+        font-family: ${theme.fontFamily.sans};
       `
     )}
   `
