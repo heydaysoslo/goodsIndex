@@ -6,7 +6,7 @@ import styled, {
 
 import { applyModifier } from '../../styles/utilities'
 
-type Modifiers = 'large' | 'small'
+type Modifiers = 'lead' | 'small' | 'large'
 
 type PModifiers = {
   theme: DefaultTheme
