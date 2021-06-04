@@ -27,10 +27,9 @@ export const P = styled.p<PModifiers>(
       `
     )}
     ${applyModifier(
-      'large',
+      'lead',
       css`
-        ${theme.fonts.title()};
-        text-transform: uppercase;
+        ${theme.fonts.lead()};
       `
     )}
   `

@@ -92,6 +92,10 @@ export const responsiveFonts = {
     xs: '24px/1.375',
     lg: '32px/1.375'
   },
+  lead: {
+    xs: '32px/1.375',
+    lg: '48px/1.375'
+  },
   title: '24px/1.2',
   h1: {
     xs: '40px/50px',

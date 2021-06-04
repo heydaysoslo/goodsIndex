@@ -26,6 +26,9 @@ export const serializers = {
         case 'large':
           return <P modifiers="large">{props.children}</P>
 
+        case 'lead':
+          return <P modifiers="lead">{props.children}</P>
+
         case 'small':
           return (
             <P as="small" modifiers="small">
