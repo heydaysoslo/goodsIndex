@@ -1,5 +1,4 @@
 import { NextSeo } from 'next-seo'
-import { getCanonical } from 'routes'
 import { cldGetImage } from 'utils/cloudinary'
 import { toPlainText } from 'utils/helpers'
 
@@ -36,7 +35,7 @@ const truncateString = (str, maxLength, ellipsis = '…') => {
 }
 
 const SEO = ({ page }) => {
-  const canonical = getCanonical(page)
+  const canonical = `https://index.goods.no`
   const title = page?.seo?.title || page?.title || null
 
   const description =

@@ -26,11 +26,11 @@ const Favicon = () => {
         sizes="76x76"
         href={`${PATH}apple-touch-icon-76x76.png`}
       />
-      <link
+      {/* <link
         rel="apple-touch-icon"
         sizes="114x114"
         href={`${PATH}apple-touch-icon-114x114.png`}
-      />
+      /> */}
       <link
         rel="apple-touch-icon"
         sizes="120x120"
