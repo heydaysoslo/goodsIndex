@@ -1,4 +1,5 @@
 import { NextSeo } from 'next-seo'
+import { getCanonical } from 'routes'
 import { cldGetImage } from 'utils/cloudinary'
 import { toPlainText } from 'utils/helpers'
 
@@ -35,7 +36,7 @@ const truncateString = (str, maxLength, ellipsis = '…') => {
 }
 
 const SEO = ({ page }) => {
-  const canonical = 'https://goods-index.vercel.app'
+  const canonical = getCanonical(page)
   const title = page?.seo?.title || page?.title || null
 
   const description =
@@ -98,7 +99,7 @@ const SEO = ({ page }) => {
       url: canonical,
       title,
       description,
-      images: image && [image],
+      images: image && [{ ...image, url: image.src }],
       type: page?._type === 'article' ? 'article' : 'website', // https://www.npmjs.com/package/next-seo#open-graph,
       article: ogArticle
     }
