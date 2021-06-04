@@ -96,7 +96,7 @@ const Header: React.FC<Props> = ({ className, isDark, setIsDark }) => {
       '--window-height',
       `${window.innerHeight}px`
     )
-  }, [])
+  }, [windowSize.innerWidth, windowSize.innerHeight])
 
   useEffect(() => {
     animate(0, 0.13, {
@@ -174,21 +174,23 @@ const Header: React.FC<Props> = ({ className, isDark, setIsDark }) => {
             <motion.div
               initial={{ maxHeight: 0 }}
               exit={{ maxHeight: 0 }}
-              animate={{ maxHeight: 999 }}
+              animate={{ maxHeight: window.innerHeight }}
               transition={{ duration: 1 }}
               className="energy-container"
             >
-              <Spacer />
-              {showInfo === 'about' && (
-                <PageBuilder
-                  sections={sanity?.about?.[0]?.pagebuilder?.sections}
-                />
-              )}
-              {showInfo === 'energy' && (
-                <PageBuilder
-                  sections={sanity?.energy?.[0]?.pagebuilder?.sections}
-                />
-              )}
+              <div className="inner">
+                <Spacer />
+                {showInfo === 'about' && (
+                  <PageBuilder
+                    sections={sanity?.about?.[0]?.pagebuilder?.sections}
+                  />
+                )}
+                {showInfo === 'energy' && (
+                  <PageBuilder
+                    sections={sanity?.energy?.[0]?.pagebuilder?.sections}
+                  />
+                )}
+              </div>
             </motion.div>
           )}
         </AnimatePresence>
@@ -257,10 +259,14 @@ export default styled(Header)(
       overflow: hidden;
       height: calc(var(--window-height) - 90px);
       overflow: auto;
+      width: 100%;
 
       ${theme.bp.md} {
-        height: var(--window-height);
-        width: 70%;
+        height: calc(var(--window-height) - var(--header-height));
+        /* min-height: var(--window-height); */
+        .inner {
+          width: 70%;
+        }
       }
     }
   `
