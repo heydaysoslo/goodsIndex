@@ -17,6 +17,7 @@ import { useEffect, useState } from 'react'
 import { SanityProvider } from 'components/context/sanityContext'
 import useAppContext from '@heydays/useAppContext'
 import { AppProvider } from 'components/context/appContext'
+import Favicon from 'components/Favicon'
 
 function App({ Component, pageProps }) {
   return (
@@ -56,6 +57,7 @@ const Inner = ({ pageProps, Component }) => {
       <SEO
         page={pageProps?.frontpage || pageProps?.article || pageProps?.page}
       />
+      <Favicon />
       <Header isDark={isDark} setIsDark={setIsDark} />
       <GlobalStyle />
       <AnimatePresence exitBeforeEnter>

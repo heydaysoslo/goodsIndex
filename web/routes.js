@@ -50,3 +50,7 @@ export const getOgType = node => {
     return docTypes[node._type].ogType ? docTypes[node._type].ogType : 'website'
   }
 }
+
+export const getCanonical = doc => {
+  return `https://index.goods.no`
+}
