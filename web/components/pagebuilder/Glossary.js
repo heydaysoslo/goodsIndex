@@ -97,7 +97,7 @@ const Glossary = ({ className, glossary, tags }) => {
             <Search items={glossary} setSearchTerm={setSearchTerm} />
           </Stack>
         </Sticky>
-        <Spacer />
+        {/* <Spacer /> */}
         {/* {tag && <TagCategory tag={tag} />} */}
         <Stagger as="ul" className="glossaries">
           {items &&
@@ -137,6 +137,14 @@ export default styled(Glossary)(
       background: ${theme.colors.background};
       z-index: 999;
       ${theme.spacing.sm('pb')};
+    }
+
+    .glossaries > div:first-of-type .item {
+      padding-top: 0;
+
+      ${theme.bp.md} {
+        ${theme.spacing.lg('pt')};
+      }
     }
 
     .glossaries > div:not(:last-of-type) {
