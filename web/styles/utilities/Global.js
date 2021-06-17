@@ -6,12 +6,13 @@ export const GlobalStyle = createGlobalStyle(
   ({ theme }) => css`
   @font-face {
   font-family: "SuisseIntl";
-  src: url("fonts/SuisseIntl-Regular-WebM.eot?#iefix");
+  src: url('fonts/SuisseIntl-Regular.otf') format('opentype');
+  /* src: url("fonts/SuisseIntl-Regular-WebM.eot?#iefix");
   src: url("fonts/SuisseIntl-Regular-WebM.eot?#iefix") format("embedded-opentype"),
     url("fonts/SuisseIntl-Regular-WebM.woff2") format("woff2"),
     url("fonts/SuisseIntl-Regular-WebM.woff") format("woff"),
     url("fonts/SuisseIntl-Regular-WebM.ttf") format("truetype"),
-    url("fonts/SuisseIntl-Regular-WebM.svg") format("svg");
+    url("fonts/SuisseIntl-Regular-WebM.svg") format("svg"); */
   font-weight: normal;
   font-style: normal;
   /* font-display: swap; */
